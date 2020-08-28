@@ -1,0 +1,69 @@
+a .blanco{
+    color: white;
+}
+.elige_color{
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    box-shadow: 1px 1px 1px rgb(85, 84, 84);
+}
+.paleta_principal{
+    width: 250px;
+    height: 30px;
+    box-shadow: 1px 1px 1px rgb(85, 84, 84);
+}
+.paleta {
+    width: 50px;
+    height: 30px;
+    box-shadow: 1px 1px 1px rgb(85, 84, 84);
+}
+.paleta_sec{
+    width: 10px;
+    height: 30px;
+    border: rgb(88, 88, 88) solid 1px;
+    box-shadow: 1px 1px 1px rgb(85, 84, 84);
+}
+#rojo1,#rojo2,#rojo3,#rojo4,#rojo5,#rojo6 {
+    display: none;
+}
+#marron1,#marron2,#marron3,#marron4,#marron5,#marron6 {
+    display: none;
+}
+#naranjao1,#naranjao2,#naranjao3,#naranjao4,#naranjao5,#naranjao6 {
+    display: none;
+}
+#naranjac1,#naranjac2,#naranjac3,#naranjac4,#naranjac5,#naranjac6 {
+    display: none;
+}
+#amarrilloo1,#amarrilloo2,#amarrilloo3,#amarrilloo4,#amarrilloo5,#amarrilloo6 {
+    display: none;
+}
+#amarrilloc1,#amarrilloc2,#amarrilloc3,#amarrilloc4,#amarrilloc5,#amarrilloc6 {
+    display: none;
+}
+#verdec1,#verdec2,#verdec3,#verdec4,#verdec5,#verdec6 {
+    display: none;
+}
+#verdeo1,#verdeo2,#verdeo3,#verdeo4,#verdeo5,#verdeo6 {
+    display: none;
+}
+#turquesa1,#turquesa2,#turquesa3,#turquesa4,#turquesa5,#turquesa6 {
+    display: none;
+}
+#azul1,#azul2,#azul3,#azul4,#azul5,#azul6 {
+    display: none;
+}
+#rosa1,#rosa2,#rosa3,#rosa4,#rosa5,#rosa6 {
+    display: none;
+}
+#violeta1,#violeta2,#violeta3,#violeta4,#violeta5,#violeta6 {
+    display: none;
+}
+#negro1,#negro2,#negro3,#negro4,#negro5,#negro6 {
+    display: none;
+}
+#gris1,#gris2,#gris3,#gris4,#gris5,#gris6 {
+    display: none;
+}
