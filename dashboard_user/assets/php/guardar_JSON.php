@@ -1,5 +1,5 @@
 <?php
-	error_reporting(0);
+	//error_reporting(0);
     require "jsonProductos.php"   ;
     require "config_products.php";
     require "config_serv.php"     ;

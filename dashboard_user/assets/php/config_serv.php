@@ -1,5 +1,5 @@
 <?php
-$jsonConfig = '
+$jsonConfigServicios = '
 {"config" : {
     "calendario" : {
 	    "titulo"      : "titulo de calendario",
