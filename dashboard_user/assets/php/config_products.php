@@ -72,13 +72,7 @@ $jsonConfig = '
         "titulo"    : "fuenteTitulos",
         "subtitulo" : "fuenteSubtitulos",
         "link"      : "fuenteLink"
-    },
-    "colores" : {
-        "color1"   : "x1",
-        "color2"    : "x2",
-        "color3" : "x3",
-        "color4"      : "x4"
-    },
+	},
 	"logos" : {
 		"logo"    : "link logo",
 	    "favicom" : "link favicom"
@@ -200,8 +194,23 @@ $jsonConfig = '
         }
     },
     "index" : {
-        "categoriaSlide" : { 
-            "id" : "1: titulo uno "
+        "slides" : {
+            "id" : "1",  
+            "categoria" : "categoria0",
+            "foto"      : "link foto 1",
+            "filtroFoto" : "color1",
+            "opacidad"  : "nivel1",
+            "titulo"    : "titulo 1",
+            "subtitulo" : "subtitulo 1",
+            "texto"     : "texto 1", 
+            "link"      : "link 1",
+            "textoBtn"  : "btn 1", 
+            "colorBtn"  : "cBtn 1",
+            "tipoBtn"   : "circular",
+            "sombraBtn" : "si",
+            "colorTxTitulo"    : "#000000",
+            "colorTxSubtitulo" : "#000000",
+            "colorTxBtn" : "#000000"
         },
         "medPago" : {
             "titulo"    : "titulo pagos",
