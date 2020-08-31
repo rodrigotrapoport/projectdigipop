@@ -242,6 +242,34 @@ $jsonConfig = '
         "googleMaps"      : "https://www.google.com.mx/maps/@23.2751104,-106.397696,14z",
         "whatsapp"        : "dato 6"
     },
+    "delivery" : {
+        "rappy" : {
+            "user" : "usuario",
+            "password" : "clave"
+        },
+        "tabla": {
+            "zona1" : {
+                "id"     : "1",
+                "barrios" : "Belgrano, Nuñes",
+                "precio" : "precio uno"
+            },
+            "zona2" : {
+                "id"     : "2",
+                "barrios" : "Palermo, Colegiales",
+                "precio" : "precio dos"
+            },
+            "zona3" : {
+                "id"     : "3",
+                "barrios" : "Boedo, Flores",
+                "precio" : "precio tres"
+            },
+            "zona4" : {
+                "id"     : "4",
+                "barrios" : "Deboto, Villa Puyrredon",
+                "precio" : "precio cuatro"
+            }
+        }
+	},
     "mediosPagos" : {
         "paypal" : {
             "clienteId" : "xshwhwh",
