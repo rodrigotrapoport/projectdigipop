@@ -79,8 +79,13 @@ $(document).on('click', '.btn_del_zona', function () {
     //Confirmación de pedido de borrado
     var mensaje = confirm("¿Estas seguro que quieres borrarlo?");
     if (mensaje) {
+	    
+	    ///// RUTA  A LA CARPETA DE LA TIENDA ///////
+        var tienda = 'Rodrigo';
+	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+	    
         $.ajax({
-            url: 'assets/php/guardar_JSON.php',
+            url: ruta, //'assets/php/guardar_JSON.php',
             type: 'GET',
             data: {
                 id_zona    : id_borrar,
@@ -161,8 +166,13 @@ $(document).ready(function () {
         console.log("Instruccion "+instruccion);
         
         //Enviando los datos al PHP
+        
+        ///// RUTA  A LA CARPETA DE LA TIENDA ///////
+        var tienda = 'Rodrigo';
+	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+	    
         $.ajax({
-            url: 'assets/php/guardar_JSON.php',
+            url: ruta, //'assets/php/guardar_JSON.php',
             type: 'GET',
             data: {
                 id_zona: id_zona,
@@ -194,8 +204,13 @@ $(document).ready(function () {
         console.log("Instruccion " + instruccion);
 
         //Enviando los datos al PHP
+        
+        ///// RUTA  A LA CARPETA DE LA TIENDA ///////
+        var tienda = 'Rodrigo';
+	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+	    
         $.ajax({
-            url: 'assets/php/guardar_JSON.php',
+            url: ruta, //'assets/php/guardar_JSON.php',
             type: 'GET',
             data: {
                 rappi_user: usuario,

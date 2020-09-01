@@ -27,8 +27,13 @@ $(document).ready(function () {
         codigo_tmb = $('#gtm_body').val();
         console.log(codigo_analytics);
         //Enviando los datos al PHP
+        
+        ///// RUTA  A LA CARPETA DE LA TIENDA ///////
+        var tienda = 'Rodrigo';
+	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+	    
         $.ajax({
-            url: 'assets/php/guardar_JSON.php',
+            url: ruta, //'assets/php/guardar_JSON.php',
             type: 'GET',
             data: {
                 codigo_tmh: codigo_tmh,

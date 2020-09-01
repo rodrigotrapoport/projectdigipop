@@ -48,7 +48,12 @@ function ShowSelectedTitulo(){
         result.innerHTML = '<p class="text-danger">Selecciona una tipografía</p>'
     };
     ///////// AJAX ///////
-    $.ajax({ url : "./assets/php/guardar_JSON.php",   // envia a la url del carrito la informacion
+    
+    ///// RUTA  A LA CARPETA DE LA TIENDA ///////
+        var tienda = 'Rodrigo';
+	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+    
+    $.ajax({ url : ruta, // "./assets/php/guardar_JSON.php",   // envia a la url del carrito la informacion
 	         method   : "POST", 
 	         dataType : "json", 
 	         data : { fTitulo  : op // texto agregado 
@@ -112,7 +117,12 @@ function ShowSelectedParrafo() {
         result.innerHTML = '<p class="text-danger">Selecciona una tipografía</p>'
     };
     ///////// AJAX ///////
-    $.ajax({ url : "./assets/php/guardar_JSON.php",   // envia a la url del carrito la informacion
+    
+    ///// RUTA  A LA CARPETA DE LA TIENDA ///////
+        var tienda = 'Rodrigo';
+	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+	    
+    $.ajax({ url : ruta, //"./assets/php/guardar_JSON.php",   // envia a la url del carrito la informacion
 	         method   : "POST", 
 	         dataType : "json", 
 	         data : { fParrafo  : op1 // texto agregado 
@@ -175,7 +185,12 @@ function ShowSelectedTituloEsp() {
         result.innerHTML = '<p class="text-danger">Selecciona una tipografía</p>'
     };
     ///////// AJAX ///////
-    $.ajax({ url : "./assets/php/guardar_JSON.php",   // envia a la url del carrito la informacion
+    
+    ///// RUTA  A LA CARPETA DE LA TIENDA ///////
+        var tienda = 'Rodrigo';
+	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+	    
+    $.ajax({ url : ruta, //"./assets/php/guardar_JSON.php",   // envia a la url del carrito la informacion
 	         method   : "POST", 
 	         dataType : "json", 
 	         data : { fSubtitulo  : op // texto agregado 

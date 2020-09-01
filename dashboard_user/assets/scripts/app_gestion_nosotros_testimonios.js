@@ -193,8 +193,13 @@ $(document).on('click', '.btn_del_eq', function () {
     console.log("ID borrar Equipo " +id_borrar_equipo);
     var mensaje = confirm("¿Estas seguro que quieres borrarlo?");
     if (mensaje){
+	    
+	    ///// RUTA  A LA CARPETA DE LA TIENDA ///////
+        var tienda = 'Rodrigo';
+	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+	    
         $.ajax({
-            url: 'assets/php/guardar_JSON.php',
+            url: ruta, //'assets/php/guardar_JSON.php',
             type: 'GET',
             data: {
                 id_miembro: id_borrar_equipo,
@@ -336,8 +341,13 @@ $(document).on('click', '.btn_del_te', function () {
     console.log("ID borrar Testimonio " +id_borrar_testimonio);
     var mensaje = confirm("¿Estas seguro que quieres borrarlo?");
     if (mensaje) {
+	    
+	    ///// RUTA  A LA CARPETA DE LA TIENDA ///////
+        var tienda = 'Rodrigo';
+	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+	    
         $.ajax({
-            url: 'assets/php/guardar_JSON.php',
+            url: ruta, //'assets/php/guardar_JSON.php',
             type: 'GET',
             data: {
                 id_testimonio: id_borrar_testimonio,
@@ -446,8 +456,13 @@ $(document).ready(function () {
         console.log(miembro_instagram);
         console.log(miembro_email);
         e.preventDefault();
+        
+        ///// RUTA  A LA CARPETA DE LA TIENDA ///////
+        var tienda = 'Rodrigo';
+	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+	    
         $.ajax({
-            url: 'assets/php/guardar_JSON.php',
+            url: ruta, //'assets/php/guardar_JSON.php',
             type: 'GET',
             data: {
                 id_miembro: id_equipo,
@@ -494,8 +509,13 @@ $(document).ready(function () {
         console.log(calif_testimonio);
         console.log(imagen_testimonio);
         e.preventDefault();
+        
+        ///// RUTA  A LA CARPETA DE LA TIENDA ///////
+        var tienda = 'Rodrigo';
+	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+	    
         $.ajax({
-            url: 'assets/php/guardar_JSON.php',
+            url: ruta, //'assets/php/guardar_JSON.php',
             type: 'GET',
             data: {
                 id_testimonio : id_cliente,
@@ -537,8 +557,13 @@ $(document).ready(function () {
         console.log(nosotros_f3);
         console.log(nosotros_f4);
         e.preventDefault();
+        
+        ///// RUTA  A LA CARPETA DE LA TIENDA ///////
+        var tienda = 'Rodrigo';
+	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+	    
         $.ajax({
-            url: 'assets/php/guardar_JSON.php',
+            url: ruta, //'assets/php/guardar_JSON.php',
             type: 'GET',
             data: {
                 nosotros_ofrecemos: nosotros_ofrecemos,

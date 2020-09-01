@@ -56,6 +56,41 @@ $(document).ready(function () {
         twitter = $('#contacto_twitter').val();
         linkedin = $('#contacto_linkedin').val();
         
+        if( $('#form1').attr('checked')){
+           var formNombre = 'si';
+           console.log('form1 si');	        
+        }  else {
+	       var formNombre = 'no';
+	       console.log('form1 no'); 
+        };
+        
+        if( $('#form2').attr('checked')){
+           var formEmail = 'si';
+           console.log('form2 si');	        
+        }  else {
+	       var formEmail = 'no';
+	       console.log('form2 no'); 
+        };
+
+        if( $('#form3').attr('checked')){
+           var formMotivo = 'si';
+           console.log('form3 si');	        
+        }  else {
+	       var formMotivo = 'no';
+	       console.log('form3 no'); 
+        };
+
+        if( $('#form4').attr('checked')){
+           var formTelefono = 'si';
+           console.log('form4 si');	        
+        }  else {
+	       var formTelefono = 'no';
+	       console.log('form4 no'); 
+        };
+
+        
+        
+        
         console.log(mail);
         console.log(form);
         console.log(tel);
@@ -66,12 +101,24 @@ $(document).ready(function () {
         console.log(twitter);
         console.log(linkedin);
         //Enviando los datos al PHP
+        
+        ///// RUTA  A LA CARPETA DE LA TIENDA ///////
+        var tienda = 'Rodrigo';
+	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+	    
         $.ajax({
-            url: 'assets/php/guardar_JSON.php',
+	        
+            //url: 'assets/php/guardar_JSON.php',
+            url : ruta , 
             type: 'POST',
             data: {
                 contactoEmail   : mail,
-                contactoFormulario: form,
+                //contactoFormulario: form,
+                contactoF1 : formNombre,
+                contactoF2 : formEmail,
+                contactoF3 : formMotivo,
+                contactoF4 : formTelefono,
+                
                 contactoTelefono: tel,
                 contactoWhatsapp: whatsapp,
                 contactolinkMessenger: messenger,

@@ -1850,17 +1850,17 @@
 		    $.ajax({ url : "assets/php/guardar_JSON.php",   // envia a la url del carrito la informacion
 			         method   : "POST", 
 			         dataType : "json", 
-			         data : {color1 : color1,
-				             color2 : color2,
-				             color3 : color3,
-				             color4 : color4 // texto agregado 
+			         data : {color_1 : color1,
+				             color_2 : color2,
+				             color_3 : color3,
+				             color_4 : color4 // texto agregado 
 			         },  
 			         success : function(resp){
 				        var   consulta = resp.res;
 				  	    alert(consulta);			                   
 				     }, 
 				     error   : function(res){
-					    alert('ERROR!!!');
+					    //alert('ERROR!!!');
 			         }
 			});
 			

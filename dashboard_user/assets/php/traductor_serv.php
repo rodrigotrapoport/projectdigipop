@@ -1,6 +1,12 @@
 <?php
     
-    require ("jsonServicios.php");
+    //require ("jsonServicios.php");
+       
+    $tienda = 'Rodrigo'; // direcciona a la carpeta de la tienda
+    
+    require ("../../../ecommerce/".$tienda."/config/assets/php/jsonServicios.php");
+    
+    
      
     $jsonS = json_decode($jsonServicios,true); 
     /* $jS = json_encode ($jsonS); */

@@ -113,8 +113,13 @@ $(document).on('click', '.btn_del_slicat', function () {
     console.log("ID borrar Equipo " + id_borrar_catslides);
     var mensaje = confirm("¿Estas seguro que quieres borrarlo?");
     if (mensaje) {
+	    
+	    ///// RUTA  A LA CARPETA DE LA TIENDA ///////
+        var tienda = 'Rodrigo';
+	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+	    
         $.ajax({
-            url: 'assets/php/guardar_JSON.php',
+            url: ruta, //'assets/php/guardar_JSON.php',
             type: 'GET',
             data: {
                 id_catSlide: id_borrar_catslides,
@@ -514,8 +519,13 @@ $(document).on('click', '.btn_del_sli', function () {
     console.log("ID borrar SLIDE " + id_borrar_slide);
     var mensaje = confirm("¿Estas seguro que quieres borrarlo?");
     if (mensaje) {
+	    
+	    ///// RUTA  A LA CARPETA DE LA TIENDA ///////
+        var tienda = 'Rodrigo';
+	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+	    
         $.ajax({
-            url: 'assets/php/guardar_JSON.php',
+            url: ruta, //'assets/php/guardar_JSON.php',
             type: 'GET',
             data: {
                 id_slide: id_borrar_slide,
@@ -888,8 +898,13 @@ $(document).ready(function () {
         console.log("INSTRUCCION CATSLIDES" + intruccion);
         console.log("Titulo catslides " + titulo);
         e.preventDefault();
+        
+        ///// RUTA  A LA CARPETA DE LA TIENDA ///////
+        var tienda = 'Rodrigo';
+	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+	    
         $.ajax({
-            url: 'assets/php/guardar_JSON.php',
+            url: ruta, //'assets/php/guardar_JSON.php',
             type: 'GET',
             data: {
                 id_catSlide: id_catslides,
@@ -948,8 +963,13 @@ $(document).ready(function () {
         console.log(opacidad);
         console.log(imagen);
         e.preventDefault();
+        
+        ///// RUTA  A LA CARPETA DE LA TIENDA ///////
+        var tienda = 'Rodrigo';
+	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+	    
         $.ajax({
-            url: 'assets/php/guardar_JSON.php',
+            url: ruta, //'assets/php/guardar_JSON.php',
             type: 'GET',
             data: {
                 id_slide: id_slide,

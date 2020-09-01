@@ -294,8 +294,13 @@ $(document).on('click', '.btn_del_cat', function () {
     } else{
         console.log("No se borro la categoria");
     };
+    
+    ///// RUTA  A LA CARPETA DE LA TIENDA ///////
+        var tienda = 'Rodrigo';
+	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+	    
     $.ajax({
-        url: 'assets/php/guardar_JSON.php',
+        url: ruta, //'assets/php/guardar_JSON.php',
         type: 'GET',
         data: {
             id_nueva_cat: id_borrar,
@@ -629,8 +634,13 @@ $(document).on('click', '.btn_del_pr', function () {
     } else {
         console.log("No se borro el producto");
     }; 
+    
+    ///// RUTA  A LA CARPETA DE LA TIENDA ///////
+        var tienda = 'Rodrigo';
+	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+	    
     $.ajax({
-        url: 'assets/php/guardar_JSON.php',
+        url: ruta, //'assets/php/guardar_JSON.php',
         type: 'GET',
         data: {
             id_producto: id_producto,
@@ -881,8 +891,13 @@ $(document).ready(function () {
         console.log("Soy la ultima prioridad a enviar " + prioridad);
         console.log("La instruccion es: "+instruccion);
         e.preventDefault();
+        
+        ///// RUTA  A LA CARPETA DE LA TIENDA ///////
+        var tienda = 'Rodrigo';
+	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+        
         $.ajax({
-            url: 'assets/php/guardar_JSON.php',
+            url: ruta, //'assets/php/guardar_JSON.php',
             type: 'GET',
             data: {
                 id_nueva_cat: id_nueva_cat,
@@ -945,8 +960,13 @@ $(document).ready(function () {
         console.log("Foto3 del producto a enviar: " + foto3);
         /* generarCat(id_nueva_cat, slide, prioridad); */
         e.preventDefault();
+        
+        ///// RUTA  A LA CARPETA DE LA TIENDA ///////
+        var tienda = 'Rodrigo';
+	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+	    
         $.ajax({
-            url: 'assets/php/guardar_JSON.php',
+            url: ruta, //'assets/php/guardar_JSON.php',
             type: 'GET',
             data: {
                 id_producto: id_producto,

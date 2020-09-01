@@ -31,8 +31,13 @@ $(document).ready(function () {
         console.log(texto);
         console.log(codigo);
         //Enviando los datos al PHP
+        
+        ///// RUTA  A LA CARPETA DE LA TIENDA ///////
+        var tienda = 'Rodrigo';
+	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+	    
         $.ajax({
-            url: 'assets/php/guardar_JSON.php',
+            url:   ruta , //'assets/php/guardar_JSON.php',
             type: 'POST',
             data: {
                 calendario_titulo: titulo,
