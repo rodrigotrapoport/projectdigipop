@@ -14,8 +14,8 @@ $jsonConfigServicios = '
             "telefono" : "si",
             "motivo"   : "no"
             },
-        "telefono"      : "77777777",
-        "whatsapp"      : "99999999999999",
+        "telefono"      : "123456789",
+        "whatsapp"      : "987654321",
         "linkMessenger" : "link Facebook Messenger",
         "linkFacebook"  : "link de facebook" ,
         "linkInstagram" : "link de instagram",
@@ -72,17 +72,17 @@ $jsonConfigServicios = '
         "titulo"    : "fuenteTitulos",
         "subtitulo" : "fuenteSubtitulos",
         "link"      : "fuenteLink"
-	},
+    },
+    "colores" : {
+        "color1"   : "x1",
+        "color2"    : "x2",
+        "color3" : "x3",
+        "color4"      : "x4"
+    },
 	"logos" : {
 		"logo"    : "link logo",
 	    "favicom" : "link favicom"
     },
-    "colores" : {
-        "color1" : "c 1",
-        "color2" : "c 2",
-        "color3" : "c 3",
-        "color4" : "c 4"
-	},
     "slides" : {
         "slide1" : {
             "id" : "1",  
@@ -200,23 +200,8 @@ $jsonConfigServicios = '
         }
     },
     "index" : {
-        "slides" : {
-            "id" : "1",  
-            "categoria" : "categoria0",
-            "foto"      : "link foto 1",
-            "filtroFoto" : "color1",
-            "opacidad"  : "nivel1",
-            "titulo"    : "titulo 1",
-            "subtitulo" : "subtitulo 1",
-            "texto"     : "texto 1", 
-            "link"      : "link 1",
-            "textoBtn"  : "btn 1", 
-            "colorBtn"  : "cBtn 1",
-            "tipoBtn"   : "circular",
-            "sombraBtn" : "si",
-            "colorTxTitulo"    : "#000000",
-            "colorTxSubtitulo" : "#000000",
-            "colorTxBtn" : "#000000"
+        "categoriaSlide" : { 
+            "id" : "1: titulo uno "
         },
         "medPago" : {
             "titulo"    : "titulo pagos",
