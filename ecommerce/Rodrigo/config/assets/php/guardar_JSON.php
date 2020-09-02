@@ -884,4 +884,46 @@ if(     isset($_GET['id_producto'])
 	   gConfigProducto( $setupProductos ); 
     };
     
+    // DELIVERY //
+    
+    //$_POST['id_z'] = 1;
+    //$_POST['barrios_z'] = 'Mazatlan';
+    //$_POST['precio_z'] = '123';
+    
+    if( isset($_POST['id_z']) AND
+        isset($_POST['barrios_z']) AND
+        isset($_POST['precio_z']) 
+    ){
+	    $idZ = $_POST['id_z'];
+	    $num = str_replace('zona', '', $_POST['id_z']);
+	    if ( array_key_exists($idZ, $setupProductos['config']['delivery']['tabla'])){
+	    
+	        $setupProductos['config']['delivery']['tabla'][$idZ]['id']      = $num;
+	        $setupProductos['config']['delivery']['tabla'][$idZ]['barrios'] = $_POST['barrios_z'];
+	        $setupProductos['config']['delivery']['tabla'][$idZ]['precio']  = $_POST['precio_z'];
+	    
+	    } else {
+		    
+		    $setupProductos['config']['delivery']['tabla'][$idZ]['id']      = $num;
+	        $setupProductos['config']['delivery']['tabla'][$idZ]['barrios'] = $_POST['barrios_z'];
+	        $setupProductos['config']['delivery']['tabla'][$idZ]['precio']  = $_POST['precio_z'];   
+	    };
+	    
+	    gConfigProducto( $setupProductos );
+    };
+    
+    // RAPY //
+    $_POST['rappi_user'] = 'rappy 1';
+    $_POST['rappi_psw']  = 'clave rappy';
+    
+    if( isset($_POST['rappi_user']) AND
+        isset($_POST['rappi_psw']) 
+    ){
+        $setupProductos['config']['delivery']['rappy']['user']     = $_POST['rappi_user'];
+        $setupProductos['config']['delivery']['rappy']['password'] = $_POST['rappi_psw'] ;
+        
+        gConfigProducto( $setupProductos );
+    }
+    
+    
 ?>

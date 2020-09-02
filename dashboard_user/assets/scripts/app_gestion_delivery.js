@@ -173,12 +173,12 @@ $(document).ready(function () {
 	    
         $.ajax({
             url: ruta, //'assets/php/guardar_JSON.php',
-            type: 'GET',
+            type: 'POST',
             data: {
-                id_zona: id_zona,
+                id_z: id_zona,
                 instruccion_delivery: instruccion,
-                barrios: barrios,
-                precio: precio  
+                barrios_z: barrios,
+                precio_z: precio  
             },
             success: function (response) {
                 console.log(response);
@@ -211,7 +211,7 @@ $(document).ready(function () {
 	    
         $.ajax({
             url: ruta, //'assets/php/guardar_JSON.php',
-            type: 'GET',
+            type: 'POST',
             data: {
                 rappi_user: usuario,
                 rappi_psw: psw 

@@ -255,24 +255,24 @@ $jsonConfigProductos = '
         },
         "tabla": {
             "zona1" : {
-                "id"     : "1",
+                "id"      : "1",
                 "barrios" : "Belgrano, Nuñes",
-                "precio" : "precio uno"
+                "precio"  : "precio uno"
             },
             "zona2" : {
-                "id"     : "2",
+                "id"      : "2",
                 "barrios" : "Palermo, Colegiales",
-                "precio" : "precio dos"
+                "precio"  : "precio dos"
             },
             "zona3" : {
-                "id"     : "3",
+                "id"      : "3",
                 "barrios" : "Boedo, Flores",
-                "precio" : "precio tres"
+                "precio"  : "precio tres"
             },
             "zona4" : {
-                "id"     : "4",
+                "id"      : "4",
                 "barrios" : "Deboto, Villa Puyrredon",
-                "precio" : "precio cuatro"
+                "precio"  : "precio cuatro"
             }
         }
 	},

@@ -18,26 +18,27 @@ function gConfigProducto( $arrConfProd){
     fclose($archivo);
 }
 //////////////////////////////////
-
-$fileName     = $_FILES["fileB"]["name"]; // The file name
-$fileTmpLoc   = $_FILES["fileB"]["tmp_name"]; // File in the PHP tmp folder
-$fileType     = $_FILES["fileB"]["type"]; // The type of file it is
-$fileSize     = $_FILES["fileB"]["size"]; // File size in bytes
-$fileErrorMsg = $_FILES["fileB"]["error"]; // 0 for false... and 1 for true
+	
+$fileName     = $_FILES["fileB"]["name"] ;    // The file name
+$fileTmpLoc   = $_FILES["fileB"]["tmp_name"];// File in the PHP tmp folder
+$fileType     = $_FILES["fileB"]["type"] ;    // The type of file it is
+$fileSize     = $_FILES["fileB"]["size"] ;    // File size in bytes
+$fileErrorMsg = $_FILES["fileB"]["error"];   // 0 for false... and 1 for true
 if (!$fileTmpLoc) { // if file not chosen
-    echo "ERROR: Please browse for a file before clicking the upload button.";
+    //echo "ERROR: Please browse for a file before clicking the upload button.";
     exit();
 }
 $extension = end(explode(".", $_FILES["fileB"]["name"])); // extension del archivo de fotos
-if(move_uploaded_file($fileTmpLoc, "backups/favicom.".$extension)){
+if(move_uploaded_file($fileTmpLoc, "backups/favicon.".$extension)){
     //echo "correcto";
     // EDITA EL GUARDAR JSON LOGOS
-    $setupProductos['config']['logos']['favicom'] = 'favicom.'.$extension; // debe ser un unico nombre
-    $setupServicios['config']['logos']['favicom'] = 'favicom.'.$extension;
-    gConfigProducto( $setupProductos );
+    $setupProductos['config']['logos']['logo'] = 'favicon.'.$extension; // debe ser un unico nombre
+    $setupServicios['config']['logos']['logo'] = 'favicon.'.$extension;
+    gConfigProducto( $setupProductos ); 
 } else {
     //echo "error";
 }	
+
 header('Location:../../gestion_de_logos.html');	
 ob_end_flush();	
 ?>
