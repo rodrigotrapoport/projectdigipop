@@ -224,6 +224,37 @@ $jsonConfigProductos = '
             "subtitulo" : "subtitulo delivery"
         }
     },
+    
+    
+    "delivery" : {
+        "rappy" : { 
+            "user" : "rappy 1",
+            "password" : "clave rappy"
+        },
+        "tabla" : { 
+            "zona1" : { 
+                "id" : "1",
+                "barrios" : "Mazatlan, Tulum",
+                "precio"  :"12"
+            },
+            "zona2" : { 
+                "id" : "2",
+                "barrios" : "Palermo, Colegiales",
+                "precio"  : "precio dos"
+            },
+            "zona3" : {
+                "id" : "3",
+                "barrios" : "Boedo, Flores",
+                "precio"  : "precio tres"
+            },
+            "zona4" : {
+                "id" : "4",
+                "barrios" : "Deboto, Villa Puyrredon",
+                "precio"  : "precio cuatro"
+            }
+        }
+    },
+    
     "analisis" : {
         "googleAnalitics" : "dato 1",
         "googleTargetHead"    : "dato 2.1",

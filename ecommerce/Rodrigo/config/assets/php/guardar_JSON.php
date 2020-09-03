@@ -913,17 +913,17 @@ if(     isset($_GET['id_producto'])
     };
     
     // RAPY //
-    $_POST['rappi_user'] = 'rappy 1';
-    $_POST['rappi_psw']  = 'clave rappy';
+    $_GET['rappi_user'] = 'rappy 7';
+    $_GET['rappi_psw']  = 'clave rappy';
     
-    if( isset($_POST['rappi_user']) AND
-        isset($_POST['rappi_psw']) 
+    if( isset($_GET['rappi_user']) AND
+        isset($_GET['rappi_psw']) 
     ){
-        $setupProductos['config']['delivery']['rappy']['user']     = $_POST['rappi_user'];
-        $setupProductos['config']['delivery']['rappy']['password'] = $_POST['rappi_psw'] ;
+        $setupProductos['config']['delivery']['rappy']['user']     = $_GET['rappi_user'];
+        $setupProductos['config']['delivery']['rappy']['password'] = $_GET['rappi_psw'] ;
         
         gConfigProducto( $setupProductos );
-    }
+    };
     
     
 ?>

@@ -36,8 +36,8 @@ function cargarDatos() {
             id_ultimo_imp = "zona"+id_ultimo_temp;
             $('#id_zona').html(id_ultimo_imp); 
             $('#instruccion_delivery').text("crear");
-            $('delivery_rappi_usuario').val(usuario);
-            $('delivery_rappi_psw').val(psw);
+            //$('delivery_rappi_usuario').val(usuario);
+            //$('delivery_rappi_psw').val(psw);
         }
     });
 };
@@ -86,12 +86,12 @@ $(document).on('click', '.btn_del_zona', function () {
 	    
         $.ajax({
             url: ruta, //'assets/php/guardar_JSON.php',
-            type: 'GET',
+            type: 'POST',
             data: {
-                id_zona    : id_borrar,
+                id_z    : id_borrar,
                 instruccion_delivery: "borrar",
-                barrios: "",
-                precio : "" 
+                barrios_z: "",
+                precio_z : "" 
             },
             success: function (response1) {
                 console.log(response1);
@@ -157,7 +157,7 @@ $(document).ready(function () {
         console.log("hiciste click en guardar Zona");
         id_zona = $('#id_zona').text();
         barrios = $('#delivery_barrio').val();
-        precio = $('#delivery_precio').val(); 
+        precio  = $('#delivery_precio').val(); 
         instruccion = $('#instruccion_delivery').text(); 
        
         console.log("ID Zona a enviar "+id_zona);
@@ -169,7 +169,7 @@ $(document).ready(function () {
         
         ///// RUTA  A LA CARPETA DE LA TIENDA ///////
         var tienda = 'Rodrigo';
-	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+	    var ruta   = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
 	    
         $.ajax({
             url: ruta, //'assets/php/guardar_JSON.php',
@@ -192,29 +192,34 @@ $(document).ready(function () {
         });
 
     });  
-    $('.btn-tb-en').click(function (e) {
+	
+  //$('.btn-rappi').click(function (e) {
+	$('#guardarRappi').click(function (e) {    
         e.preventDefault();
+        
+        alert('click'); 
+        
         console.log("hiciste click en guardar Rappi");
-        usuario = $('delivery_rappi_usuario').val();
-        psw = $('delivery_rappi_psw').val();
+        usuario = $('#delivery_rappi_usuario').val();
+        psw     = $('#delivery_rappi_psw').val();
 
-        console.log("ID Zona a enviar " + id_zona);
-        console.log("Barrios " + barrios);
-        console.log("Precio " + precio);
-        console.log("Instruccion " + instruccion);
+        //console.log("ID Zona a enviar " + id_zona);
+        //console.log("Barrios " + barrios);
+        //console.log("Precio " + precio);
+        //console.log("Instruccion " + instruccion);
 
         //Enviando los datos al PHP
         
         ///// RUTA  A LA CARPETA DE LA TIENDA ///////
         var tienda = 'Rodrigo';
-	    var ruta = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
+	    var ruta   = '../ecommerce/' + tienda +'/config/assets/php/guardar_JSON.php' ;
 	    
         $.ajax({
             url: ruta, //'assets/php/guardar_JSON.php',
-            type: 'POST',
+            type: 'GET',
             data: {
-                rappi_user: usuario,
-                rappi_psw: psw 
+                rappi_user : usuario,
+                rappi_psw  : psw 
             },
             success: function (response) {
                 console.log(response);
@@ -226,6 +231,8 @@ $(document).ready(function () {
                 };
             }
         });
-
-    });  
+    }); 
+     
 });
+
+
