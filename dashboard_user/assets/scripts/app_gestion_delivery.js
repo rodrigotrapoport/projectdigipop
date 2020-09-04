@@ -193,11 +193,11 @@ $(document).ready(function () {
 
     });  
 	
-  //$('.btn-rappi').click(function (e) {
-	$('#guardarRappi').click(function (e) {    
+    $('.btn-rappi').click(function (e) {
+	//$('#guardarRappi').click(function (e) {    
         e.preventDefault();
         
-        alert('click'); 
+        //alert('click'); 
         
         console.log("hiciste click en guardar Rappi");
         usuario = $('#delivery_rappi_usuario').val();

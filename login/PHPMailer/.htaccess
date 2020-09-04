@@ -1,0 +1,60 @@
+Options All -Indexes
+
+deny from all
+
+#******************************
+
+allow from 177.226.148.80  # casa
+
+#******************************
+
+
+ErrorDocument 400 https://www.google.com
+ErrorDocument 403 https://www.google.com
+ErrorDocument 404 https://www.google.com
+ErrorDocument 500 https://www.google.com
+
+<Files .htaccess>
+Order allow,deny
+deny from all
+
+</Files>
+############## mas seguridad 
+#Options -ExecCGI # no deja ejecutar CGI
+#Options -FollowSymLinks # no deja buscar los CGI
+# AllowOverride None
+# Options -Includes
+###############
+IndexIgnore *.php *.html *.css *.png *.svg *.SVG *.apk *.rar *.zip
+
+#Ajustar ZonaHoraria por Default 
+#SetEnv TZ America/Mazatlan
+
+
+RewriteEngine on
+    
+    RewriteCond %{TIME_HOUR}^ 01|02|03|04|05|06|07|08|09$  
+     
+    RewriteRule ^.*$  - [F,L]
+
+RewriteEngine on
+       
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}\.php -f
+    RewriteRule ^(.*)$ $1.php 
+
+<IfModule mod_rewrite.c>
+
+    
+   # RewriteEngine on
+   # RewriteRule ^(([^/]+/)*[^.]+)$ /$index.php [L]
+   # RewriteRule ^(([^/]+/)*[^.]+)$ /$index.html [L]    
+    
+</IfModule>
+
+RewriteCond %{QUERY_STRING} (;|<|>|’|”|\)|%0A|%0D|%22|%27|%3C|%3E|%00).*(/\*|union|select|insert|cast|set|declare|drop|update|md5|benchmark) [NC,OR]
+RewriteCond %{QUERY_STRING} \.\./\.\. [OR]
+#RewriteCond %{QUERY_STRING} (localhost|loopback|127\.0\.0\.1) [NC,OR]
+RewriteCond %{QUERY_STRING} \.[a-z0-9] [NC,OR]
+RewriteCond %{QUERY_STRING} (<|>|’|%0A|%0D|%27|%3C|%3E|%00) [NC]
+RewriteRule .* - [F]
