@@ -1,4 +1,5 @@
 <?php	
+// Este parte del traductor de Ecommerce sirve para ciertos Scripts JS que estan relacionados con la configuración BackEnd
 //require ("config_products.php");
 //require ("jsonProductos.php");
 

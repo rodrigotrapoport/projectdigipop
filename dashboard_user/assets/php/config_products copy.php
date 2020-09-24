@@ -126,18 +126,22 @@ $jsonConfigProductos = '
 	"catSlide" : {
         "catSlide1" : {
             "id"     : "1",
-            "titulo" : "titulo uno"
+            "titulo" : "titulo uno",
+            "visibilidades" : "si"
         },
         "catSlide2" : {
             "id"     : "2",
-            "titulo" : "titulo dos"
+            "titulo" : "titulo dos",
+            "visibilidades" : "si"
         },
         "catSlide3" : {
             "id"     : "3",
-            "titulo" : "titulo tres"
+            "titulo" : "titulo tres",
+            "visibilidades" : "no"
         },"catSlide4" : {
             "id"     : "4",
-            "titulo" : "titulo cuatro"
+            "titulo" : "titulo cuatro",
+            "visibilidades" : "no"
         }
 	},
 	"nosotros" : {

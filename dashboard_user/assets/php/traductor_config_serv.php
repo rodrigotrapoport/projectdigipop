@@ -1,5 +1,5 @@
 <?php
-    
+    //Este parte del traductor sirve para ciertos Scripts JS que estan relacionados con la configuración BackEnd
     //require ("config_serv.php");
     //require ("jsonServicios.php");
     

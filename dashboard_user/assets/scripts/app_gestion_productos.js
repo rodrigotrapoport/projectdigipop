@@ -44,7 +44,8 @@ function cargarDatos() {
             template_productos = ``;
             temp_gal =``;
             ix = 1;
-            console.log("JSON esta cargado!")
+            console.log("JSON esta cargado!");
+            console.log("La linea es:" + lineas);
             for (i in lineas.galeria) {
                 if (lineas['visibilidades'][i]=="si"){
                     template_categoria += `
@@ -100,10 +101,10 @@ function cargarDatos() {
                         `;
             /* Para generar lista de Slides en Categorias */
             templete_sel_slide = ``;
-            for (z in lineas.galeria) {
-                if (lineas['visibilidades'][z] == "si") {
+            for (z in lineas['catslides']) {
+                if (lineas['catslides'][z]['visibilidades'] == "si") {
                 templete_sel_slide += `
-                            <option value="${lineas.galeria[z]}">${lineas.galeria[z]}</option>
+                            <option value="${lineas['catslides'][z]['titulo']}">${lineas['catslides'][z]['titulo']}</option>
                         `;
                 };
             };
