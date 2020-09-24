@@ -14,16 +14,16 @@
     
 //*************** FUNCIONES CONFIG PRODUCTO *********
 
-function gConfigProducto( $arrConfProd){
+function gConfigSevicio( $arrConfProd){
 	//echo json_encode($arrConfProd); // imprime el arry modificado
 	//Crear copia de seguridad de datos anteriores
     $date = date('ymdGi');
-    $ficheroOriginal = 'config_products.php';
-    $ficheroCopia = 'backups/config_products_'.$date.'.php';
+    $ficheroOriginal = 'config_serv.php';
+    $ficheroCopia = 'backups/config_serv_'.$date.'.php';
     copy($ficheroOriginal, $ficheroCopia);
     // Generar el guardado del nuevo JSON
-    $codigoPHP = "<?php "."$"."jsonConfigProductos = '".json_encode($arrConfProd)."  '; ?>";
-    $archivo = fopen("config_products.php", "w");
+    $codigoPHP = "<?php "."$"."jsonConfigServicios = '".json_encode($arrConfProd)."  '; ?>";
+    $archivo = fopen("config_serv.php", "w");
     fwrite($archivo, $codigoPHP);
     fclose($archivo);
 }
@@ -61,30 +61,6 @@ if( isset($_GET['id_nueva_cat']) AND isset($_GET['slide']) AND isset($_GET['prio
 };
     
 ///// PRODUCTOS  /EDITA/CREA/BORRA
-/*
-$_GET['id_producto'] = "producto11";
-$_GET['nombre_producto']= "zapatilla FEAAAAA";
-$_GET['unidad_producto']= "Bolsa";
-$_GET['precioA'] = "299";
-$_GET['precioB']= "199";
-$_GET['producto_categoria'] = "galeria1";
-$_GET['oferta']="si";
-$_GET['moneda']="USD";
-$_GET['producto_prioridad']="Alta";
-$_GET['codigo']="1231";
-$_GET['calif']="5";
-$_GET['colores']="negro-blanco";
-$_GET['tamanos']= "chico - mediano - grande";
-$_GET['descrip']= "Esta es la descripción del super cemento rosado";
-$_GET['condi']= "Las hermosas condiciones del producto";
-$_GET['foto1']= "foto1";
-$_GET['foto2']= "foto2";
-$_GET['foto3']= "foto3";
-$_GET['instruccion']="crear"; ///// crear editar borrar
-
-////// productos crear / productos editar / productos borrar
-
-*/
     
 if(     isset($_GET['id_producto']) 
     AND isset($_GET['nombre_producto']) 
@@ -149,7 +125,7 @@ if(     isset($_GET['id_producto'])
                     $productos ['productos'][$id_nueva_cat][$id_producto]['foto1'] = $foto1 ;
                     $productos ['productos'][$id_nueva_cat][$id_producto]['foto2'] = $foto2 ;
                     $productos ['productos'][$id_nueva_cat][$id_producto]['foto3'] = $foto3 ;
-                    var_dump($productos);
+                    //var_dump($productos);
                     } else{
                         // estamos BORRANDO PRODUCTO
                         $productos ['productos'][$id_nueva_cat][$id_producto]['visibilidades'] = "no" ;
@@ -161,9 +137,9 @@ if(     isset($_GET['id_producto'])
                 else{
                     if($instruccion =="crear"){
                         
-                        /* $conteo_reves_array = krsort($productos['productos'][$id_nueva_cat]); */
+                        // $conteo_reves_array = krsort($productos['productos'][$id_nueva_cat]);
                         foreach ($productos['productos'][$id_nueva_cat] as $key => $val) {
-                            /* echo "$key = $val\n" */;
+                            // echo "$key = $val\n";
                             $ultimo_pro = $key;
                         };
                         
@@ -217,6 +193,8 @@ if(     isset($_GET['id_producto'])
 }else{
         echo "esta faltando un dato";
 }; ///// CIERRE DEL IF DE PRODUCTOS //////
+*/
+
     /*
     //No TOCAR!!!!! Guardado de archivo!!!!
     $serv_res = "OK";
@@ -252,11 +230,11 @@ if(     isset($_GET['id_producto'])
 		$calendarioExplicacion = $_POST['calendarioExplicacion'];
 		$calendarioScript      = $_POST['calendarioScript'];
 		
-		$setupProductos['config']['calendario']['titulo']      = $calendarioTitulo;
-		$setupProductos['config']['calendario']['explicacion'] = $calendarioExplicacion;
-		$setupProductos['config']['calendario']['script']      = $calendarioScript;
+		$setupServicios['config']['calendario']['titulo']      = $calendarioTitulo;
+		$setupServicios['config']['calendario']['explicacion'] = $calendarioExplicacion;
+		$setupServicios['config']['calendario']['script']      = $calendarioScript;
 	
-	    gConfigProducto( $setupProductos );
+	    gConfigSevicio( $setupServicios );
 	};
 
     // CONTACTOS //
@@ -312,22 +290,22 @@ if(     isset($_GET['id_producto'])
 		$setupProductos['config']['contacto']['email']      = $contactoEmail;
 		//$setupProductos['config']['contacto']['formulario'] = $contactoFormulario;
 		
-		$setupProductos['config']['contacto']['formulario']['nombre']  = $contactoF1;
-		$setupProductos['config']['contacto']['formulario']['email']   = $contactoF2;
-		$setupProductos['config']['contacto']['formulario']['motivo']  = $contactoF3;
-		$setupProductos['config']['contacto']['formulario']['telefono']= $contactoF4;
+		$setupServicios['config']['contacto']['formulario']['nombre']  = $contactoF1;
+		$setupServicios['config']['contacto']['formulario']['email']   = $contactoF2;
+		$setupServicios['config']['contacto']['formulario']['motivo']  = $contactoF3;
+		$setupServicios['config']['contacto']['formulario']['telefono']= $contactoF4;
 		
-		$setupProductos['config']['contacto']['telefono'] = $contactoTelefono;
-		$setupProductos['config']['contacto']['whatsapp'] = $contactoWhatsapp;
-		$setupProductos['config']['contacto']['linkMessenger'] = $contactolinkMessenger;
-		$setupProductos['config']['contacto']['linkFacebook']  = $contactolinkFacebook;
-		$setupProductos['config']['contacto']['linkInstagram'] = $contactolinkInstagram;
-		$setupProductos['config']['contacto']['linkTwitter']   = $contactolinkTwitter;
-		$setupProductos['config']['contacto']['linkEdin']   = $contactolinkEdin; 
+		$setupServicios['config']['contacto']['telefono'] = $contactoTelefono;
+		$setupServicios['config']['contacto']['whatsapp'] = $contactoWhatsapp;
+		$setupServicios['config']['contacto']['linkMessenger'] = $contactolinkMessenger;
+		$setupServicios['config']['contacto']['linkFacebook']  = $contactolinkFacebook;
+		$setupServicios['config']['contacto']['linkInstagram'] = $contactolinkInstagram;
+		$setupServicios['config']['contacto']['linkTwitter']   = $contactolinkTwitter;
+		$setupServicios['config']['contacto']['linkEdin']   = $contactolinkEdin; 
 	
-	    gConfigProducto( $setupProductos );
+	    gConfigSevicio( $setupProductos );
 	};
-		
+	
 	// CONTADOR DE EXITO //
 	/*
 	$_POST['id']     = '3';
@@ -349,12 +327,12 @@ if(     isset($_GET['id_producto'])
 		$exitoVisibilidad = $_POST['visibilidad'];
 		$exitoIcono = $_POST['icono'];
 		
-		$setupProductos['config']['contadorExito']['exito'.$exitoId]['id']    = $exitoId;
-		$setupProductos['config']['contadorExito']['exito'.$exitoId]['texto'] = $exitoTexto;
-		$setupProductos['config']['contadorExito']['exito'.$exitoId]['nombre']= $exitoVisibilidad;
-		$setupProductos['config']['contadorExito']['exito'.$exitoId]['icono'] = $exitoIcono;
+		$setupServicios['config']['contadorExito']['exito'.$exitoId]['id']    = $exitoId;
+		$setupServicios['config']['contadorExito']['exito'.$exitoId]['texto'] = $exitoTexto;
+		$setupServicios['config']['contadorExito']['exito'.$exitoId]['nombre']= $exitoVisibilidad;
+		$setupServicios['config']['contadorExito']['exito'.$exitoId]['icono'] = $exitoIcono;
 		
-		gConfigProducto( $setupProductos );
+		gConfigSevicio( $setupServicios );
 	}
 
     // TIPOGRAFIA   1 de 42 posibles //
@@ -366,16 +344,16 @@ if(     isset($_GET['id_producto'])
 	*/
 	
 	if( isset($_POST['fTitulo'])){
-		$setupProductos['config']['tipografia']['titulo'] = $_POST['fTitulo'];
-		gConfigProducto( $setupProductos );
+		$setupServicios['config']['tipografia']['titulo'] = $_POST['fTitulo'];
+		gConfigSevicio( $setupServicios );
 	}
 	if( isset($_POST['fSubtitulo'])){
-		$setupProductos['config']['tipografia']['subtitulo'] = $_POST['fSubtitulo'];
-		gConfigProducto( $setupProductos );
+		$setupServicios['config']['tipografia']['subtitulo'] = $_POST['fSubtitulo'];
+		gConfigSevicio( $setupServicios );
 	}
 	if( isset($_POST['fParrafo'])){
-		$setupProductos['config']['tipografia']['parrafo'] = $_POST['fParrafo'];
-		gConfigProducto( $setupProductos );
+		$setupServicios['config']['tipografia']['parrafo'] = $_POST['fParrafo'];
+		gConfigSevicio( $setupServicios );
 	}
 	
 	
@@ -396,7 +374,7 @@ if(     isset($_GET['id_producto'])
         $setupProductos['config']['tipografia']['subtitulo'] = $tipografiaSubtitulo;
         $setupProductos['config']['tipografia']['link']      = $tipografiaLink;
         
-        gConfigProducto( $setupProductos );
+        gConfigSevicio( $setupProductos );
     }  */
     
     // LOGOS //
@@ -410,10 +388,10 @@ if(     isset($_GET['id_producto'])
 		$logoLogo    = $_POST['logo'];
 		$logoFavicom = $_POST['favicom'];
 		
-		$setupProductos['config']['logos']['logo']    = $logoLogo;
-		$setupProductos['config']['logos']['favicom'] = $logoFavicom;
+		$setupServicios['config']['logos']['logo']    = $logoLogo;
+		$setupServicios['config']['logos']['favicom'] = $logoFavicom;
 		
-		gConfigProducto( $setupProductos );
+		gConfigSevicio( $setupServicios );
 		
 	}
     // COLORES //
@@ -422,11 +400,11 @@ if(     isset($_GET['id_producto'])
         isset($_POST['color_3'])   AND
         isset($_POST['color_4']) 
     ){
-	   $setupProductos['config']['colores']['color1'] = $_POST['color_1'];
-	   $setupProductos['config']['colores']['color2'] = $_POST['color_2'];
-	   $setupProductos['config']['colores']['color3'] = $_POST['color_3'];
-	   $setupProductos['config']['colores']['color4'] = $_POST['color_4'];
-	   gConfigProducto( $setupProductos );
+	   $setupServicios['config']['colores']['color1'] = $_POST['color_1'];
+	   $setupServicios['config']['colores']['color2'] = $_POST['color_2'];
+	   $setupServicios['config']['colores']['color3'] = $_POST['color_3'];
+	   $setupServicios['config']['colores']['color4'] = $_POST['color_4'];
+	   gConfigSevicio( $setupServicios );
     }  
     
     
@@ -486,44 +464,44 @@ if(     isset($_GET['id_producto'])
         $slideColorTxBtn       = $_POST['slide_colorTxBtn'];
         
         
-        if ( array_key_exists('slide'.$slideId,  $setupProductos['config']['slides']) ){
+        if ( array_key_exists('slide'.$slideId,  $setupServicios['config']['slides']) ){
 	        
-	        $setupProductos['config']['slides']['slide'.$slideId]['foto']       = $slideFoto;
-	        $setupProductos['config']['slides']['slide'.$slideId]['filtroFoto'] = $slideFiltroFoto;
-	        $setupProductos['config']['slides']['slide'.$slideId]['opacidad']   = $slideOpacidad;
-	        $setupProductos['config']['slides']['slide'.$slideId]['titulo']     = $slideTitulo;
-	        $setupProductos['config']['slides']['slide'.$slideId]['subtitulo']  = $slideSubtitulo;
-	        $setupProductos['config']['slides']['slide'.$slideId]['texto']      = $slideTexto;
-	        $setupProductos['config']['slides']['slide'.$slideId]['link']       = $slideLink;
-	        $setupProductos['config']['slides']['slide'.$slideId]['textoBtn']   = $slideTextoBtn;
-	        $setupProductos['config']['slides']['slide'.$slideId]['colorBtn']   = $slideColorBtn;
-	        $setupProductos['config']['slides']['slide'.$slideId]['tipoBtn']    = $slideTipoBtn;
-	        $setupProductos['config']['slides']['slide'.$slideId]['sombreBtn']  = $slideSombraBtn;
-	        $setupProductos['config']['slides']['slide'.$slideId]['colorTxTitulo']    = $slideColorTxTitulo;
-	        $setupProductos['config']['slides']['slide'.$slideId]['colorTxSubtitulo'] = $slideColorTxSubtitulo;
-	        $setupProductos['config']['slides']['slide'.$slideId]['colorTxBtn']       = $slideColorTxBtn;
+	        $setupServicios['config']['slides']['slide'.$slideId]['foto']       = $slideFoto;
+	        $setupServicios['config']['slides']['slide'.$slideId]['filtroFoto'] = $slideFiltroFoto;
+	        $setupServicios['config']['slides']['slide'.$slideId]['opacidad']   = $slideOpacidad;
+	        $setupServicios['config']['slides']['slide'.$slideId]['titulo']     = $slideTitulo;
+	        $setupServicios['config']['slides']['slide'.$slideId]['subtitulo']  = $slideSubtitulo;
+	        $setupServicios['config']['slides']['slide'.$slideId]['texto']      = $slideTexto;
+	        $setupServicios['config']['slides']['slide'.$slideId]['link']       = $slideLink;
+	        $setupServicios['config']['slides']['slide'.$slideId]['textoBtn']   = $slideTextoBtn;
+	        $setupServicios['config']['slides']['slide'.$slideId]['colorBtn']   = $slideColorBtn;
+	        $setupServicios['config']['slides']['slide'.$slideId]['tipoBtn']    = $slideTipoBtn;
+	        $setupServicios['config']['slides']['slide'.$slideId]['sombreBtn']  = $slideSombraBtn;
+	        $setupServicios['config']['slides']['slide'.$slideId]['colorTxTitulo']    = $slideColorTxTitulo;
+	        $setupServicios['config']['slides']['slide'.$slideId]['colorTxSubtitulo'] = $slideColorTxSubtitulo;
+	        $setupServicios['config']['slides']['slide'.$slideId]['colorTxBtn']       = $slideColorTxBtn;
 	              
         } else {
 	        
-	        $setupProductos['config']['slides']['slide'.$slideId]['id'] = $slideId;
-	        $setupProductos['config']['slides']['slide'.$slideId]['categoria']  = 'categoria'.$slideId;
-	        $setupProductos['config']['slides']['slide'.$slideId]['foto'] = $slideFoto;
-	        $setupProductos['config']['slides']['slide'.$slideId]['filtroFoto'] = $slideFiltroFoto;
-	        $setupProductos['config']['slides']['slide'.$slideId]['opacidad']   = $slideOpacidad;
-	        $setupProductos['config']['slides']['slide'.$slideId]['titulo']     = $slideTitulo;
-	        $setupProductos['config']['slides']['slide'.$slideId]['subtitulo']  = $slideSubtitulo;
-	        $setupProductos['config']['slides']['slide'.$slideId]['texto']      = $slideTexto;
-	        $setupProductos['config']['slides']['slide'.$slideId]['link']       = $slideLink;
-	        $setupProductos['config']['slides']['slide'.$slideId]['textoBtn']   = $slideTextoBtn;
-	        $setupProductos['config']['slides']['slide'.$slideId]['colorBtn']   = $slideColorBtn;
-	        $setupProductos['config']['slides']['slide'.$slideId]['tipoBtn']    = $slideTipoBtn;
-	        $setupProductos['config']['slides']['slide'.$slideId]['sombreBtn']  = $slideSombraBtn;
-	        $setupProductos['config']['slides']['slide'.$slideId]['colorTxTitulo']    = $slideColorTxTitulo;
-	        $setupProductos['config']['slides']['slide'.$slideId]['colorTxSubtitulo'] = $slideColorTxSubtitulo;
-	        $setupProductos['config']['slides']['slide'.$slideId]['colorTxBtn']       = $slideColorTxBtn;
+	        $setupServicios['config']['slides']['slide'.$slideId]['id'] = $slideId;
+	        $setupServicios['config']['slides']['slide'.$slideId]['categoria']  = 'categoria'.$slideId;
+	        $setupServicios['config']['slides']['slide'.$slideId]['foto'] = $slideFoto;
+	        $setupServicios['config']['slides']['slide'.$slideId]['filtroFoto'] = $slideFiltroFoto;
+	        $setupServicios['config']['slides']['slide'.$slideId]['opacidad']   = $slideOpacidad;
+	        $setupServicios['config']['slides']['slide'.$slideId]['titulo']     = $slideTitulo;
+	        $setupServicios['config']['slides']['slide'.$slideId]['subtitulo']  = $slideSubtitulo;
+	        $setupServicios['config']['slides']['slide'.$slideId]['texto']      = $slideTexto;
+	        $setupServicios['config']['slides']['slide'.$slideId]['link']       = $slideLink;
+	        $setupServicios['config']['slides']['slide'.$slideId]['textoBtn']   = $slideTextoBtn;
+	        $setupServicios['config']['slides']['slide'.$slideId]['colorBtn']   = $slideColorBtn;
+	        $setupServicios['config']['slides']['slide'.$slideId]['tipoBtn']    = $slideTipoBtn;
+	        $setupServicios['config']['slides']['slide'.$slideId]['sombreBtn']  = $slideSombraBtn;
+	        $setupServicios['config']['slides']['slide'.$slideId]['colorTxTitulo']    = $slideColorTxTitulo;
+	        $setupServicios['config']['slides']['slide'.$slideId]['colorTxSubtitulo'] = $slideColorTxSubtitulo;
+	        $setupServicios['config']['slides']['slide'.$slideId]['colorTxBtn']       = $slideColorTxBtn;
         };
             
-        gConfigProducto( $setupProductos );
+        gConfigSevicio( $setupServicios );
         
     };
     
@@ -540,14 +518,14 @@ if(     isset($_GET['id_producto'])
 	    $catSlideTitulo = $_POST['titulo_catSlide'];
 	    
 	    if ( array_key_exists('catSlide'.$catSlideId,  $setupProductos['config']['catSlide']) ){    
-		    $setupProductos['config']['catSlide']['catSlide'.$catSlideId]['id']     = $catSlideId;
-		    $setupProductos['config']['catSlide']['catSlide'.$catSlideId]['titulo'] = $catSlideTitulo;
+		    $setupServicios['config']['catSlide']['catSlide'.$catSlideId]['id']     = $catSlideId;
+		    $setupServicios['config']['catSlide']['catSlide'.$catSlideId]['titulo'] = $catSlideTitulo;
 		} else {
-			$setupProductos['config']['catSlide']['catSlide'.$catSlideId]['id']     = $catSlideId;
-		    $setupProductos['config']['catSlide']['catSlide'.$catSlideId]['titulo'] = $catSlideTitulo;
+			$setupServicios['config']['catSlide']['catSlide'.$catSlideId]['id']     = $catSlideId;
+		    $setupServicios['config']['catSlide']['catSlide'.$catSlideId]['titulo'] = $catSlideTitulo;
 		}; 
 		
-		gConfigProducto( $setupProductos );   
+		gConfigSevicio( $setupServicios );   
 		  
     };
     
@@ -584,17 +562,17 @@ if(     isset($_GET['id_producto'])
         $nosotrosFoto3   = $_POST['nosotrosFoto3'];
         $nosotrosFoto4   = $_POST['nosotrosFoto4'];
         
-        $setupProductos['config']['nosotros']['qOfrecemos']  = $nosotrosqOfrecemos;
-        $setupProductos['config']['nosotros']['diferencial'] = $nosotrosDiferencial;
-        $setupProductos['config']['nosotros']['valores'] = $nosotrosValores;
-        $setupProductos['config']['nosotros']['vision']  = $nosotrosVision;
-        $setupProductos['config']['nosotros']['mision']  = $nosotrosMision;
-        $setupProductos['config']['nosotros']['foto1']   = $nosotrosFoto1 ;
-        $setupProductos['config']['nosotros']['foto2']   = $nosotrosFoto2 ;
-        $setupProductos['config']['nosotros']['foto3']   = $nosotrosFoto3 ;
-        $setupProductos['config']['nosotros']['foto4']   = $nosotrosFoto4 ;
+        $setupServicios['config']['nosotros']['qOfrecemos']  = $nosotrosqOfrecemos;
+        $setupServicios['config']['nosotros']['diferencial'] = $nosotrosDiferencial;
+        $setupServicios['config']['nosotros']['valores'] = $nosotrosValores;
+        $setupServicios['config']['nosotros']['vision']  = $nosotrosVision;
+        $setupServicios['config']['nosotros']['mision']  = $nosotrosMision;
+        $setupServicios['config']['nosotros']['foto1']   = $nosotrosFoto1 ;
+        $setupServicios['config']['nosotros']['foto2']   = $nosotrosFoto2 ;
+        $setupServicios['config']['nosotros']['foto3']   = $nosotrosFoto3 ;
+        $setupServicios['config']['nosotros']['foto4']   = $nosotrosFoto4 ;
         
-        gConfigProducto( $setupProductos );
+        gConfigSevicio( $setupServicios );
     };
     
     // EQUIPO //
@@ -634,33 +612,33 @@ if(     isset($_GET['id_producto'])
 	   $equipoInstagram = $_POST['instagram_equipo'];
 	   $equipoCategoria = $_POST['categoria_equipo'];
 	    
-	   if ( array_key_exists('miembro'.$equipoId,  $setupProductos['config']['equipo']) ){
+	   if ( array_key_exists('miembro'.$equipoId,  $setupServicios['config']['equipo']) ){
 		   
-		   $setupProductos['config']['equipo']['miembro'.$equipoId]['id']     = $equipoId;
-		   $setupProductos['config']['equipo']['miembro'.$equipoId]['foto']   = $equipoFoto;
-		   $setupProductos['config']['equipo']['miembro'.$equipoId]['nombre'] = $equipoNombre;
-		   $setupProductos['config']['equipo']['miembro'.$equipoId]['rol']    = $equipoRol;
-		   $setupProductos['config']['equipo']['miembro'.$equipoId]['texto']  = $equipoTexto;
-		   $setupProductos['config']['equipo']['miembro'.$equipoId]['email']  = $equipoEmail;
-		   $setupProductos['config']['equipo']['miembro'.$equipoId]['linkedin']  = $equipoLinkedin;
-		   $setupProductos['config']['equipo']['miembro'.$equipoId]['facebook']  = $equipoFacebook;
-		   $setupProductos['config']['equipo']['miembro'.$equipoId]['instagram'] = $equipoInstagram;
-		   $setupProductos['config']['equipo']['miembro'.$equipoId]['categoria'] = $equipoCategoria;
+		   $setupServicios['config']['equipo']['miembro'.$equipoId]['id']     = $equipoId;
+		   $setupServicios['config']['equipo']['miembro'.$equipoId]['foto']   = $equipoFoto;
+		   $setupServicios['config']['equipo']['miembro'.$equipoId]['nombre'] = $equipoNombre;
+		   $setupServicios['config']['equipo']['miembro'.$equipoId]['rol']    = $equipoRol;
+		   $setupServicios['config']['equipo']['miembro'.$equipoId]['texto']  = $equipoTexto;
+		   $setupServicios['config']['equipo']['miembro'.$equipoId]['email']  = $equipoEmail;
+		   $setupServicios['config']['equipo']['miembro'.$equipoId]['linkedin']  = $equipoLinkedin;
+		   $setupServicios['config']['equipo']['miembro'.$equipoId]['facebook']  = $equipoFacebook;
+		   $setupServicios['config']['equipo']['miembro'.$equipoId]['instagram'] = $equipoInstagram;
+		   $setupServicios['config']['equipo']['miembro'.$equipoId]['categoria'] = $equipoCategoria;
 		   
 	   } else {
 		   
-		   $setupProductos['config']['equipo']['miembro'.$equipoId]['id']     = $equipoId;
-		   $setupProductos['config']['equipo']['miembro'.$equipoId]['foto']   = $equipoFoto;
-		   $setupProductos['config']['equipo']['miembro'.$equipoId]['nombre'] = $equipoNombre;
-		   $setupProductos['config']['equipo']['miembro'.$equipoId]['rol']    = $equipoRol;
-		   $setupProductos['config']['equipo']['miembro'.$equipoId]['texto']  = $equipoTexto;
-		   $setupProductos['config']['equipo']['miembro'.$equipoId]['email']  = $equipoEmail;
-		   $setupProductos['config']['equipo']['miembro'.$equipoId]['linkedin']  = $equipoLinkedin;
-		   $setupProductos['config']['equipo']['miembro'.$equipoId]['facebook']  = $equipoFacebook;
-		   $setupProductos['config']['equipo']['miembro'.$equipoId]['instagram'] = $equipoInstagram;
-		   $setupProductos['config']['equipo']['miembro'.$equipoId]['categoria'] = $equipoCategoria;
+		   $setupServicios['config']['equipo']['miembro'.$equipoId]['id']     = $equipoId;
+		   $setupServicios['config']['equipo']['miembro'.$equipoId]['foto']   = $equipoFoto;
+		   $setupServicios['config']['equipo']['miembro'.$equipoId]['nombre'] = $equipoNombre;
+		   $setupServicios['config']['equipo']['miembro'.$equipoId]['rol']    = $equipoRol;
+		   $setupServicios['config']['equipo']['miembro'.$equipoId]['texto']  = $equipoTexto;
+		   $setupServicios['config']['equipo']['miembro'.$equipoId]['email']  = $equipoEmail;
+		   $setupServicios['config']['equipo']['miembro'.$equipoId]['linkedin']  = $equipoLinkedin;
+		   $setupServicios['config']['equipo']['miembro'.$equipoId]['facebook']  = $equipoFacebook;
+		   $setupServicios['config']['equipo']['miembro'.$equipoId]['instagram'] = $equipoInstagram;
+		   $setupServicios['config']['equipo']['miembro'.$equipoId]['categoria'] = $equipoCategoria;
 	   }; 
-	   gConfigProducto( $setupProductos ); 
+	   gConfigSevicio( $setupServicios ); 
     };    
     
    // TESTIMONIOS //
@@ -692,30 +670,30 @@ if(     isset($_GET['id_producto'])
 	    $testimoniosEstrellas      = $_POST['testimoniosEstrellas'];
 	    $testimoniosNombreProducto = $_POST['testimoniosNombreProducto'];
 	   
-	    if ( array_key_exists('cliente'.$testimoniosId,  $setupProductos['config']['testimonios']) ){
+	    if ( array_key_exists('cliente'.$testimoniosId,  $setupServicios['config']['testimonios']) ){
 		    
-		    $setupProductos['config']['testimonios']['cliente'.$testimoniosId]['id']  = $testimoniosId;
-		    $setupProductos['config']['testimonios']['cliente'.$testimoniosId]['nombreUsuario'] = $testimoniosNombreUsuario;
-		    $setupProductos['config']['testimonios']['cliente'.$testimoniosId]['comentario']    = $testimoniosComentario;
-		    $setupProductos['config']['testimonios']['cliente'.$testimoniosId]['socialFuente']  = $testimoniosSocialFuente;
-		    $setupProductos['config']['testimonios']['cliente'.$testimoniosId]['socialLink'] = $testimoniosSocialLink;
-		    $setupProductos['config']['testimonios']['cliente'.$testimoniosId]['foto'] = $testimoniosFoto;
-		    $setupProductos['config']['testimonios']['cliente'.$testimoniosId]['estrellas']  = $testimoniosEstrellas;
-		    $setupProductos['config']['testimonios']['cliente'.$testimoniosId]['nombreProducto']= $testimoniosNombreProducto;
+		    $setupServicios['config']['testimonios']['cliente'.$testimoniosId]['id']  = $testimoniosId;
+		    $setupServicios['config']['testimonios']['cliente'.$testimoniosId]['nombreUsuario'] = $testimoniosNombreUsuario;
+		    $setupServicios['config']['testimonios']['cliente'.$testimoniosId]['comentario']    = $testimoniosComentario;
+		    $setupServicios['config']['testimonios']['cliente'.$testimoniosId]['socialFuente']  = $testimoniosSocialFuente;
+		    $setupServicios['config']['testimonios']['cliente'.$testimoniosId]['socialLink'] = $testimoniosSocialLink;
+		    $setupServicios['config']['testimonios']['cliente'.$testimoniosId]['foto'] = $testimoniosFoto;
+		    $setupServicios['config']['testimonios']['cliente'.$testimoniosId]['estrellas']  = $testimoniosEstrellas;
+		    $setupServicios['config']['testimonios']['cliente'.$testimoniosId]['nombreProducto']= $testimoniosNombreProducto;
 		    
 		} else {
 			
-			$setupProductos['config']['testimonios']['cliente'.$testimoniosId]['id']  = $testimoniosId;
-		    $setupProductos['config']['testimonios']['cliente'.$testimoniosId]['nombreUsuario'] = $testimoniosNombreUsuario;
-		    $setupProductos['config']['testimonios']['cliente'.$testimoniosId]['comentario']    = $testimoniosComentario;
-		    $setupProductos['config']['testimonios']['cliente'.$testimoniosId]['socialFuente']  = $testimoniosSocialFuente;
-		    $setupProductos['config']['testimonios']['cliente'.$testimoniosId]['socialLink'] = $testimoniosSocialLink;
-		    $setupProductos['config']['testimonios']['cliente'.$testimoniosId]['foto'] = $testimoniosFoto;
-		    $setupProductos['config']['testimonios']['cliente'.$testimoniosId]['estrellas']  = $testimoniosEstrellas;
-		    $setupProductos['config']['testimonios']['cliente'.$testimoniosId]['nombreProducto']= $testimoniosNombreProducto;
+			$setupServicios['config']['testimonios']['cliente'.$testimoniosId]['id']  = $testimoniosId;
+		    $setupServicios['config']['testimonios']['cliente'.$testimoniosId]['nombreUsuario'] = $testimoniosNombreUsuario;
+		    $setupServicios['config']['testimonios']['cliente'.$testimoniosId]['comentario']    = $testimoniosComentario;
+		    $setupServicios['config']['testimonios']['cliente'.$testimoniosId]['socialFuente']  = $testimoniosSocialFuente;
+		    $setupServicios['config']['testimonios']['cliente'.$testimoniosId]['socialLink'] = $testimoniosSocialLink;
+		    $setupServicios['config']['testimonios']['cliente'.$testimoniosId]['foto'] = $testimoniosFoto;
+		    $setupServicios['config']['testimonios']['cliente'.$testimoniosId]['estrellas']  = $testimoniosEstrellas;
+		    $setupServicios['config']['testimonios']['cliente'.$testimoniosId]['nombreProducto']= $testimoniosNombreProducto;
 				
 		};
-	    gConfigProducto( $setupProductos );     
+	    gConfigSevicio( $setupServicios );     
     }; 
     
     // INDEX //
@@ -780,36 +758,19 @@ if(     isset($_GET['id_producto'])
         isset($_POST['principal_delivery_t'])   AND
         isset($_POST['principal_delivery_s'])
     ){
-	    $setupProductos['config']['index']['slides']['id'] = $_POST['principal_slide'];
-	    /*
-	    $setupProductos['config']['index']['slides']['categoria']  = $_POST['indexSlideCategoria'];
-	    $setupProductos['config']['index']['slides']['foto'] = $_POST['indexSlideFoto'];
-	    $setupProductos['config']['index']['slides']['filtroFoto'] = $_POST['indexSlideFiltroFoto'];
-	    $setupProductos['config']['index']['slides']['opacidad']   = $_POST['indexSlideOpacidad'];
-	    $setupProductos['config']['index']['slides']['titulo']    = $_POST['indexSlideTitulo'];
-	    $setupProductos['config']['index']['slides']['subtitulo'] = $_POST['indexSlideSubtitulo'];
-	    $setupProductos['config']['index']['slides']['texto']     = $_POST['indexSlideTexto'];
-	    $setupProductos['config']['index']['slides']['link']      = $_POST['indexSlideLink'];
-	    $setupProductos['config']['index']['slides']['textoBtn']  = $_POST['indexSlideTextoBtn'];
-	    $setupProductos['config']['index']['slides']['colorBtn']  = $_POST['indexSlideColorBtn'];
-	    $setupProductos['config']['index']['slides']['tipoBtn']   = $_POST['indexSlideTipoBtn'];
-	    $setupProductos['config']['index']['slides']['sombraBtn'] = $_POST['indexSlideSombraBtn'];
-	    $setupProductos['config']['index']['slides']['colorTxTitulo']    = $_POST['indexSlideColorTxTitulo'];
-	    $setupProductos['config']['index']['slides']['colorTxSubtitulo'] = $_POST['indexSlideColorTxSubtitulo'];
-	    $setupProductos['config']['index']['slides']['colorTxBtn'] = $_POST['indexSlideColorTxBtn'];
-	    */
-	    $setupProductos['config']['index']['medPago']['titulo']      = $_POST['principal_pago_t'];
-	    $setupProductos['config']['index']['medPago']['subtitulo']   = $_POST['principal_pago_s'];
-	    $setupProductos['config']['index']['equipo']['titulo']       = $_POST['principal_equipo_t'];
-	    $setupProductos['config']['index']['equipo']['subtitulo']    = $_POST['principal_equipo_s'];
-	    $setupProductos['config']['index']['contExito']['titulo']    = $_POST['principal_ce_t'];
-	    $setupProductos['config']['index']['contExito']['subtitulo'] = $_POST['principal_ce_s'];
-	    $setupProductos['config']['index']['testimonios']['titulo']  = $_POST['principal_testimonio_t'];
-	    $setupProductos['config']['index']['testimonios']['subtitulo'] = $_POST['principal_testimonio_s'];
-	    $setupProductos['config']['index']['delivery']['titulo']     = $_POST['principal_delivery_t'];
-	    $setupProductos['config']['index']['delivery']['subtitulo']  = $_POST['principal_delivery_s'];
+	    $setupServicios['config']['index']['slides']['id'] = $_POST['principal_slide'];
+	    $setupServicios['config']['index']['medPago']['titulo']      = $_POST['principal_pago_t'];
+	    $setupServicios['config']['index']['medPago']['subtitulo']   = $_POST['principal_pago_s'];
+	    $setupServicios['config']['index']['equipo']['titulo']       = $_POST['principal_equipo_t'];
+	    $setupServicios['config']['index']['equipo']['subtitulo']    = $_POST['principal_equipo_s'];
+	    $setupServicios['config']['index']['contExito']['titulo']    = $_POST['principal_ce_t'];
+	    $setupServicios['config']['index']['contExito']['subtitulo'] = $_POST['principal_ce_s'];
+	    $setupServicios['config']['index']['testimonios']['titulo']  = $_POST['principal_testimonio_t'];
+	    $setupServicios['config']['index']['testimonios']['subtitulo'] = $_POST['principal_testimonio_s'];
+	    $setupServicios['config']['index']['delivery']['titulo']     = $_POST['principal_delivery_t'];
+	    $setupServicios['config']['index']['delivery']['subtitulo']  = $_POST['principal_delivery_s'];
 	    
-	    gConfigProducto( $setupProductos ); 
+	    gConfigSevicio( $setupServicios ); 
 	     
     };
     
@@ -827,24 +788,24 @@ if(     isset($_GET['id_producto'])
     
     // FACEBOOK MESSENGER 
     if( isset($_POST['codigo_messenger'])){
-	    $setupProductos['config']['analisis']['facebookMessenger']= $_POST['codigo_messenger'];
-	    gConfigProducto( $setupProductos );
+	    $setupServicios['config']['analisis']['facebookMessenger']= $_POST['codigo_messenger'];
+	    gConfigSevicio( $setupProductos );
     };
     // PIXEL
     if( isset($_POST['codigo_pixel'])){
-	    $setupProductos['config']['analisis']['facebookPixel']= $_POST['codigo_pixel'];
-	    gConfigProducto( $setupProductos );
+	    $setupServicios['config']['analisis']['facebookPixel']= $_POST['codigo_pixel'];
+	    gConfigSevicio( $setupProductos );
     };
     // GOOGLE ANALITYCS
     if( isset($_POST['codigo_analytics'])){
-	    $setupProductos['config']['analisis']['googleAnalitics']= $_POST['codigo_analytics'];
-	    gConfigProducto( $setupProductos );
+	    $setupServicios['config']['analisis']['googleAnalitics']= $_POST['codigo_analytics'];
+	    gConfigSevicio( $setupProductos );
     };
     // GOOGLE TAG MANAGER
     if( isset($_POST['codigo_tmh']) AND isset($_POST['codigo_tmb'])){
-	    $setupProductos['config']['analisis']['googleTargetHead']= $_POST['codigo_tmh'];
-	    $setupProductos['config']['analisis']['googleTargetBody']= $_POST['codigo_tmb'];
-	    gConfigProducto( $setupProductos );
+	    $setupServicios['config']['analisis']['googleTargetHead']= $_POST['codigo_tmh'];
+	    $setupServicios['config']['analisis']['googleTargetBody']= $_POST['codigo_tmb'];
+	    gConfigSevicio( $setupServicios );
     };
     
     
@@ -871,17 +832,59 @@ if(     isset($_GET['id_producto'])
         isset($_POST['mediosPagosCriptoDai'])       AND
         isset($_POST['mediosPagosCriptoUsdt'])
     ){
-	    $setupProductos['config']['mediosPagos']['paypal']['clienteId'] = $_POST['mediosPagosPaypalClienteId'];
-	    $setupProductos['config']['mediosPagos']['paypal']['apiKey']    = $_POST['mediosPagosPaypalApiKey'];
-	    $setupProductos['config']['mediosPagos']['mercadoPago']['clienteId'] = $_POST['mediosPagosMercadoPagoClienteId'];
-	    $setupProductos['config']['mediosPagos']['mercadoPago']['apiKey']    = $_POST['mediosPagosMercadoPagoApiKey'];
-	    $setupProductos['config']['mediosPagos']['cripto']['bitcoin']   = $_POST['mediosPagosCriptoBitcoin'];
-	    $setupProductos['config']['mediosPagos']['cripto']['btcApiKey'] = $_POST['mediosPagosCriptoBtcApiKey'];
-	    $setupProductos['config']['mediosPagos']['cripto']['ethereum']  = $_POST['mediosPagosCriptoEthereum'];
-	    $setupProductos['config']['mediosPagos']['cripto']['dai']  = $_POST['mediosPagosCriptoDai'];
-	    $setupProductos['config']['mediosPagos']['cripto']['usdt'] = $_POST['mediosPagosCriptoUsdt'];
+	    $setupServicios['config']['mediosPagos']['paypal']['clienteId'] = $_POST['mediosPagosPaypalClienteId'];
+	    $setupServicios['config']['mediosPagos']['paypal']['apiKey']    = $_POST['mediosPagosPaypalApiKey'];
+	    $setupServicios['config']['mediosPagos']['mercadoPago']['clienteId'] = $_POST['mediosPagosMercadoPagoClienteId'];
+	    $setupServicios['config']['mediosPagos']['mercadoPago']['apiKey']    = $_POST['mediosPagosMercadoPagoApiKey'];
+	    $setupServicios['config']['mediosPagos']['cripto']['bitcoin']   = $_POST['mediosPagosCriptoBitcoin'];
+	    $setupServicios['config']['mediosPagos']['cripto']['btcApiKey'] = $_POST['mediosPagosCriptoBtcApiKey'];
+	    $setupServicios['config']['mediosPagos']['cripto']['ethereum']  = $_POST['mediosPagosCriptoEthereum'];
+	    $setupServicios['config']['mediosPagos']['cripto']['dai']  = $_POST['mediosPagosCriptoDai'];
+	    $setupServicios['config']['mediosPagos']['cripto']['usdt'] = $_POST['mediosPagosCriptoUsdt'];
 	    
-	   gConfigProducto( $setupProductos ); 
+	   gConfigSevicio( $setupServicios ); 
     };
+    
+    // DELIVERY //
+    
+    //$_POST['id_z'] = 1;
+    //$_POST['barrios_z'] = 'Mazatlan';
+    //$_POST['precio_z'] = '123';
+    
+    if( isset($_POST['id_z']) AND
+        isset($_POST['barrios_z']) AND
+        isset($_POST['precio_z']) 
+    ){
+	    $idZ = $_POST['id_z'];
+	    $num = str_replace('zona', '', $_POST['id_z']);
+	    if ( array_key_exists($idZ, $setupServicios['config']['delivery']['tabla'])){
+	    
+	        $setupServicios['config']['delivery']['tabla'][$idZ]['id']      = $num;
+	        $setupServicios['config']['delivery']['tabla'][$idZ]['barrios'] = $_POST['barrios_z'];
+	        $setupServicios['config']['delivery']['tabla'][$idZ]['precio']  = $_POST['precio_z'];
+	    
+	    } else {
+		    
+		    $setupServicios['config']['delivery']['tabla'][$idZ]['id']      = $num;
+	        $setupServicios['config']['delivery']['tabla'][$idZ]['barrios'] = $_POST['barrios_z'];
+	        $setupServicios['config']['delivery']['tabla'][$idZ]['precio']  = $_POST['precio_z'];   
+	    };
+	    
+	    gConfigSevicio( $setupServicios );
+    };
+    
+    // RAPY //
+    $_GET['rappi_user'] = 'rappy 7';
+    $_GET['rappi_psw']  = 'clave rappy';
+    
+    if( isset($_GET['rappi_user']) AND
+        isset($_GET['rappi_psw']) 
+    ){
+        $setupServicios['config']['delivery']['rappy']['user']     = $_GET['rappi_user'];
+        $setupServicios['config']['delivery']['rappy']['password'] = $_GET['rappi_psw'] ;
+        
+        gConfigSevicio( $setupServicios );
+    };
+    
     
 ?>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digipop Tech</title>
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+        
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+	    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+        crossorigin="anonymous">
+    </script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" 
+	    crossorigin="anonymous">
+	</script>
+    <link rel="stylesheet" href="css/estilosiniciar.css">
+    
+    <style>
+	    
+		.fondo {
+		  background-image: linear-gradient(#D8D8DF, #EFEFF0);
+		  background-repeat: no-repeat; 
+		  background-size: cover;     
+		  height: 100vh;  
+		}
+		
+		img {
+	        width: 250px;
+	        -webkit-filter: drop-shadow(5px 5px 10px #666666);
+	        filter: drop-shadow(5px 5px 5px #666666);
+	    }
+	    footer {
+		  position: absolute;
+		  bottom: 0;
+		  width: 100%;
+		}  
+    </style>
+    
+</head>
+<body class="fondo" onload="inicio()">
+	<br><br>    
+    <div class="container">
+	    <div class="row justify-content-md-center">
+	        <img src="digiPop.svg" height="70px"  class="col-md-3 col8"><br>
+	    </div>
+	    <br>
+	    <p class="h3 text-dark text-center">INGRESAR USUARIO Y PIN DE SEGURIDAD</p>
+	    <hr>
+	    
+	    <form class="col">
+		    <div class="row">
+			    <div class="col-md-3"></div>
+				<div class="form-group col-md-6">
+				    <label for="formGroupExampleInput">Ingresar Usuario</label>
+				    <input type="text" class="form-control is-invalid" id="logUsuario" placeholder="JesusAngel" oninput="usuarioP()">
+			    </div>
+			    <div class="col-md-3"></div>
+		    </div>
+			
+			<div class="row">
+				<div class="col-md-3"></div>  
+	   	        <div class="form-group col-md-6">
+				    <label for="formGroupExampleInput2">Ingresar Pin de 4 Digitos</label>
+				    <input type="password" class="form-control is-invalid" id="logPin" placeholder="" oninput="pinP()">
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4">
+			        <button type="button" class="btn btn-primary btn-block" id="botonLogIn">Ingresar</button>
+				</div>
+			    <div class="col-md-4"></div>
+			</div>
+			<hr class="col-md-6">
+	    </form>
+	    
+	    
+    </div>    
+    
+    <br><br>
+    <footer>
+	<nav class="navbar navbar-light bg-dark text-white">
+	  <a class="navbar-brand text-white" href="www.digipop.tech">
+	    <img src="digiPop.svg"  height="40" class="d-inline-block align-top" alt="">www.digipop.tech
+	  </a>
+	  <a class="text-center">hola@digipop.tech</a>
+	</nav>    
+    </footer>
+    
+    
+	  
+
+
+</div>
+    
+</body>
+
+<script type="text/javascript">
+	
+	
+	function usuarioP() {
+	    var n = document.getElementById("logUsuario").value;
+	    if( n.length > 8 ){
+		    document.getElementById("logUsuario").className = "form-control is-valid";
+	    } else{
+		    document.getElementById("logUsuario").className = "form-control is-invalid";
+        };
+    }
+	
+	function pinP() {
+	    var n = document.getElementById("logPin").value;
+	    if( n.length == 4 ){
+		    document.getElementById("logPin").className = "form-control is-valid";
+	    } else{
+		    document.getElementById("logPin").className = "form-control is-invalid";
+        };
+    }
+    
+$(document).ready(function(){  
+    $('#botonLogIn').click(function(){    
+	    // ENVIA LOS DATOS PERSONALES 
+	    $.ajax({  
+	        url:"registro.php",   // envia a la url DE DATOS PERSONALES
+	        method:"POST", 
+	        dataType: 'json', 
+	        data:{logUsuario : $("#logUsuario").val(),  // texto agregado
+		          logPin     : $("#logPin").val()
+		         },  
+		         success:function(resp){
+			        var datos = resp.res;
+			        			        						                     
+			    }, 
+			    error:function(res){
+				    alert('SOLICITUD ENVIADA');
+				}
+	    });
+	          
+    });
+          
+}); 
+</script>
+
+</html>
+
+<!------ Include the above in your HEAD tag ---------->
+
