@@ -6,13 +6,21 @@ function cargarDatos() {
             const lineas = JSON.parse(response);
             console.log("JSON esta cargado!");
             json_datos = lineas.servicios;
+            catslides = lineas.catslides;
             console.log (json_datos);
+            console.log(catslides);
             template_servicios =``;
             temp_testimonios = ``;
             temp_equipo = ``;
             temp_op_testimonios = ``;
-            temp_op_equipo = ``;
-            temp_slides = ``;
+            temp_op_equipo = ``; 
+            temp_slides = ``; 
+            for (j in catslides){
+                /* if (catslides[j]['visibilidades'] == "si"){ */
+                    temp_slides += `<option value="${catslides[j]['titulo']}">${catslides[j]['titulo']}</option>`; 
+                    console.log("TEMP SLIDES acum: " + temp_slides);
+                /* }; */
+            }; 
             for (i in json_datos){
                 if (json_datos[i]['visibilidad'] == "si") {
                     for(z in json_datos[i]['testimonio']){
@@ -47,7 +55,6 @@ function cargarDatos() {
                 id_ultimo = `${json_datos[i]['id']}`;
                 temp_testimonios = ``;  
                 temp_equipo = ``; 
-                temp_slides += `<option value="${json_datos[i]['slide']}">${json_datos[i]['slide']}</option>`;
                 
                 for (q in json_datos[i]['testimonio']) {
                     temp_op_testimonios += `<option value="${json_datos[i]['testimonio'][q]['cliente']}">${json_datos[i]['testimonio'][q]['cliente']}</option>`;
@@ -79,7 +86,8 @@ $(document).on('click', '.btn_edit_serv', function () {
         success: function (response) {
             const lineas = JSON.parse(response);
             console.log("JSON esta cargado!");
-            json_datos = lineas.servicios;
+            json_datos = lineas.servicios; 
+            catslides = lineas.catslides;
             console.log(json_datos);
             id_servicio_editar = "servicios" + id_editar;
             nombre=`${json_datos[id_servicio_editar]['nombre']}`;
@@ -101,6 +109,16 @@ $(document).on('click', '.btn_edit_serv', function () {
             console.log(mostrarPrecio);
             console.log(slide);
             console.log(prioridad);
+            /* Armado de Slides */ 
+            tp_slides = ``;
+            for (j in catslides) {
+                /* if (catslides[j]['visibilidades'] == "si") { */
+                    tp_slides += `<option value="${catslides[j]['titulo']}">${catslides[j]['titulo']}</option>`;
+                    console.log(tp_slides);
+                /* }; */
+            };
+            tp_slides += `<option value="${json_datos[id_servicio_editar]['slide']}" selected>${json_datos[id_servicio_editar]['slide']}</option>`;
+            console.log(tp_slides);
             /* Armado de Testimonios */
             tp_testimonios = ``;
             for (idf in json_datos) {
@@ -178,14 +196,7 @@ $(document).on('click', '.btn_edit_serv', function () {
                             </div>
                         `;
             };
-            /* Armado de Slides */
-            tp_slides = ``; 
-            for (iq in json_datos){
-                tp_slides += `<option value="${json_datos[iq]['slide']}">${json_datos[iq]['slide']}</option>`;
-                console.log(tp_slides);
-            };
-            tp_slides += `<option value="${json_datos[id_servicio_editar]['slide']}" selected>${json_datos[id_servicio_editar]['slide']}</option>`;
-            console.log(tp_slides);
+            
             //Imprimiendo en el HTMl
             $('#id_servicio').html(id_servicio_editar);
             $('#servicios_testimonios').html(tp_testimonios);
@@ -361,11 +372,14 @@ $(document).on('click', '.btn_cop_serv', function () {
                         `;
             };
             /* Armado de Slides */
+            catslides = lineas.catslides;
             tpc_slides = ``;
-            for (iq in json_datos) {
-                tpc_slides += `<option value="${json_datos[iq]['slide']}">${json_datos[iq]['slide']}</option>`;
-                console.log(tpc_slides);
-            };
+            for (ij in catslides) {
+                /* if (catslides[j]['visibilidades'] == "si") { */
+                    tpc_slides += `<option value="${catslides[ij]['titulo']}">${catslides[ij]['titulo']}</option>`;
+                    console.log(tpc_slides);
+                /* }; */
+            }; 
             tpc_slides += `<option value="${json_datos[id_servicio_copiar]['slide']}" selected>${json_datos[id_servicio_copiar]['slide']}</option>`;
             console.log(tpc_slides);
             //Imprimir en el HTML

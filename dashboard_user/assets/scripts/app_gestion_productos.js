@@ -243,14 +243,16 @@ $(document).on('click', '.btn_edit_cat', function () {
             prioridad = lineas['prioridades']['prioridad' + posicion];
             console.log(prioridad);
             $('#nombre_categoria').html(id);
+            /* Para generar lista de Slides en Categorias */
             templete_sel_slide = ``;
-            for (z in lineas.galeria) {
-                if (lineas['visibilidades'][z] == "si") {
+            for (z in lineas['catslides']) {
+                if (lineas['catslides'][z]['visibilidades'] == "si") {
                     templete_sel_slide += `
-                            <option value="${lineas.galeria[z]}">${lineas.galeria[z]}</option>
+                            <option value="${lineas['catslides'][z]['titulo']}">${lineas['catslides'][z]['titulo']}</option>
                         `;
                 };
             };
+             
             templete_sel_slide += `
                         <option value = "${lineas.galeria[id]}" selected> ${lineas.galeria[id]}</option>
                     `;
@@ -382,11 +384,12 @@ $(document).on('click', '.btn_cop_cat', function () {
             prioridad = lineas['prioridades']['prioridad' + posicion_vieja];
             console.log("Mi prioridad es: "+prioridad);
 
+            /* Para generar lista de Slides en Categorias */
             templete_sel_slide = ``;
-            for (z in lineas.galeria) {
-                if (lineas['visibilidades'][z] == "si") {
+            for (z in lineas['catslides']) {
+                if (lineas['catslides'][z]['visibilidades'] == "si") {
                     templete_sel_slide += `
-                            <option value="${lineas.galeria[z]}">${lineas.galeria[z]}</option>
+                            <option value="${lineas['catslides'][z]['titulo']}">${lineas['catslides'][z]['titulo']}</option>
                         `;
                 };
             };
