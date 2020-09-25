@@ -138,7 +138,8 @@ $jsonConfigServicios = '
             "id"     : "3",
             "titulo" : "titulo tres",
             "visibilidades" : "no"
-        },"catSlide4" : {
+        },
+        "catSlide4" : {
             "id"     : "4",
             "titulo" : "titulo cuatro",
             "visibilidades" : "no"

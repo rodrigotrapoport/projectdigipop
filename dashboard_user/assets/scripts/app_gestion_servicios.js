@@ -8,7 +8,7 @@ function cargarDatos() {
             json_datos = lineas.servicios;
             catslides = lineas.catslides;
             console.log (json_datos);
-            console.log(catslides);
+            console.log("Soy catslides"+catslides);
             template_servicios =``;
             temp_testimonios = ``;
             temp_equipo = ``;
@@ -16,10 +16,11 @@ function cargarDatos() {
             temp_op_equipo = ``; 
             temp_slides = ``; 
             for (j in catslides){
-                /* if (catslides[j]['visibilidades'] == "si"){ */
+                console.log(catslides[j]['visibilidades']);
+                if (catslides[j]['visibilidades'] == "si"){
                     temp_slides += `<option value="${catslides[j]['titulo']}">${catslides[j]['titulo']}</option>`; 
                     console.log("TEMP SLIDES acum: " + temp_slides);
-                /* }; */
+                };
             }; 
             for (i in json_datos){
                 if (json_datos[i]['visibilidad'] == "si") {
@@ -112,10 +113,10 @@ $(document).on('click', '.btn_edit_serv', function () {
             /* Armado de Slides */ 
             tp_slides = ``;
             for (j in catslides) {
-                /* if (catslides[j]['visibilidades'] == "si") { */
+                if (catslides[j]['visibilidades'] == "si") {
                     tp_slides += `<option value="${catslides[j]['titulo']}">${catslides[j]['titulo']}</option>`;
                     console.log(tp_slides);
-                /* }; */
+                };
             };
             tp_slides += `<option value="${json_datos[id_servicio_editar]['slide']}" selected>${json_datos[id_servicio_editar]['slide']}</option>`;
             console.log(tp_slides);
@@ -375,10 +376,10 @@ $(document).on('click', '.btn_cop_serv', function () {
             catslides = lineas.catslides;
             tpc_slides = ``;
             for (ij in catslides) {
-                /* if (catslides[j]['visibilidades'] == "si") { */
+                if (catslides[ij]['visibilidades'] == "si") {
                     tpc_slides += `<option value="${catslides[ij]['titulo']}">${catslides[ij]['titulo']}</option>`;
                     console.log(tpc_slides);
-                /* }; */
+                };
             }; 
             tpc_slides += `<option value="${json_datos[id_servicio_copiar]['slide']}" selected>${json_datos[id_servicio_copiar]['slide']}</option>`;
             console.log(tpc_slides);
