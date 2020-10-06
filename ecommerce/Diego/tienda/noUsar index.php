@@ -1,24 +1,16 @@
 <?php
-/* faltaltes 
-   logo de la empresa
-   definir criterio de los slides
-   delivery free
-
-*/	
-//****************************	
 ob_start();// permite corregir error en header o salto a otra pagina
 session_start();
 
 require "secciones/json.php";
 require "secciones/jsonProductos1.php";
-//*******************
+$jsonY = json_decode($jsonX, true); // true regresa un array
+$jsonP = json_decode($jsonProductos,true);
 
-require('../config/assets/php/jsonProductos_x.php');
-require('../config/assets/php/config_ProductsBeta.php'); // configuracion del sitio 
-
-$jsonConfig   = json_decode($jsonConfigProductos, true); // array configuracion del sitio
-
-$jsonY = json_decode($jsonX, true);  // array pagina index
+//echo '<br>';
+//print_r($jsonY);
+//echo '<br>';
+//echo $jsonY['tienda']['navVar']['logo'];
 
 ///////// GALERIAS Y TITULO CAROUSEL   DE PRODUCTOS /////
 $jsonGalerias = json_decode( $tituloGalerias, true );
@@ -36,53 +28,13 @@ for($i = 0; $i < count($jsonGalerias['galerias']); $i++){        // for de los e
 	next($jsonGalerias['galerias']); // avanza una posicion en el selecctor de key's
 }
 
-//////////// MEDIOS DE PAGO Y DELIVERY ///////////
-$paypal   = false;
-$mercadoPago = false;
-$bitcoin  = false;
-$ethereum = false;
-$dai      = false;
-$usdt     = false;
-$rappy    = false; // delivery
+	
 
-if( isset( $jsonConfig['config']['mediosPagos']['paypal']['clienteId']) ){
-    $paypal = true;	
-};
-if( isset( $jsonConfig['config']['mediosPagos']['mercadoPago']['clienteId']) ){
-    $mercadoPago = true;	
-};
-if( isset( $jsonConfig['config']['mediosPagos']['cripto']['bitcoin']) ){
-    $bitcoin = true;	
-};
-if( isset( $jsonConfig['config']['mediosPagos']['cripto']['ethereum']) ){
-    $ethereum = true;	
-};
-if( isset( $jsonConfig['config']['mediosPagos']['cripto']['dai']) ){
-    $dai = true;	
-};
-if( isset( $jsonConfig['config']['mediosPagos']['cripto']['dai']) ){
-    $usdt = true;	
-};
-if( isset( $jsonConfig['config']['delivery']['rappy']) ){
-    $rappy = true;	
-};
-
-////////// TESTIMONIOS //////////////////
-$arrayTestimoniosShow = '';
-for($i = 0; $i < count($jsonConfig['config']['testimonios']); $i++){ 
-    $keyT = key($jsonConfig['config']['testimonios']);
-    $arrayTestimonios = $jsonConfig['config']['testimonios'][$key];
-    
-    
-    
-    
-    $arrayTestimoniosShow .= 'm';
-};
-/////////////////////////////////////////////////
 ?>
 <!doctype html>
 <html lang="es">
 	
+
 <head>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
     crossorigin="anonymous"></script>
@@ -92,6 +44,7 @@ for($i = 0; $i < count($jsonConfig['config']['testimonios']); $i++){
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="bspop/bs4.pop.js"></script>
     
+
 	<meta charset="utf-8">
 	<meta http-equiv="Cache-Control" content="no-cache"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -100,17 +53,20 @@ for($i = 0; $i < count($jsonConfig['config']['testimonios']); $i++){
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script> <!---- iconos fa-code -->
 	
-	<link href="./css/style.php" rel="stylesheet">
+	<link href="css/style.php" rel="stylesheet">
 	
 	<link rel="stylesheet" href="bspop/bs4.pop.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<!-- <script src='https://kit.fontawesome.com/a076d05399.js'></script>  ---->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 	
 <script type="text/javascript">
 
 $(document).ready(function(){
+	
     // cantidad de articulos en el carrito
+    
     $.ajax({  
 	    url:"contarCarrito.php",   // envia a la url del carrito la informacion
 	    method:"POST", 
@@ -119,16 +75,21 @@ $(document).ready(function(){
 	         },  
 	    success:function(resp){
 		    var consultaA = resp.cant;
+		  
 		    document.getElementById('cantidad').textContent = consultaA ; // reemplaza todo y elimina lo anterior
-		    //alert(consultaA);               
+		    //alert(consultaA);
+		               
 		}, 
 		error:function(res){
 			//alert('ERROR!!!');
 	    }
 	});
+
 });
         
 </script>
+
+	
 	
 </head>
 
@@ -224,7 +185,7 @@ $(document).ready(function(){
 					    .$jsonY['tienda']['navVar']['seccion6'].
 					    '</a>
 					</li>';
-					}; 
+					} 
 				    if($jsonY['tienda']['navVar']['seccion7']!= ""){
 					echo	
 					'<li class="nav-item ">
@@ -232,7 +193,7 @@ $(document).ready(function(){
 					    .$jsonY['tienda']['navVar']['seccion7'].
 					    '</a>
 					</li>';
-					}; 
+					} 
 				?>
 				
 				<li class="nav-item ">
@@ -256,19 +217,19 @@ $(document).ready(function(){
         <div class="carousel-item active">
         <img id="fondo1" src="<?php echo $jsonY['tienda']['carrousel']['fondo1']; // Fondo 1 ?>" class="d-none d-sm d-sm-block w-100" alt="...">
         <img class="d-block d-sm-none  w-100"   src="<?php echo $jsonY['tienda']['carrousel']['fondoA']; // Fondo 2 ?>">
+
      
            <div class="carousel-caption">
 	      	   <h1 class="display-2"><?php echo $jsonY['tienda']['carrousel']['titulo']; ?></h1>
 	      	   <h3><?php echo $jsonY['tienda']['carrousel']['subt']; ?></h3>
 	      	   
-	      	   <?php    
-		      	    if($jsonY['tienda']['carrousel']['bot1']!= ""){  // boton 1
-      	                echo ' <button type="button" class="btn btn-secondary btn-lg">'.
-      	                $jsonY["tienda"]["carrousel"]["bot1"].'</button>';
-      	            };
-      	            if($jsonY['tienda']['carrousel']['bot2']!= ""){  // boton 2
-      	                echo '<button type="button" class="btn btn-primary btn-lg">'.$jsonY['tienda']['carrousel']['bot2'].'</button>';
-      	            }; 
+	      	   <?php if($jsonY['tienda']['carrousel']['bot1']!= ""){  // boton 1
+	      	            echo ' <button type="button" class="btn btn-secondary btn-lg">'.
+	      	                   $jsonY["tienda"]["carrousel"]["bot1"].'</button>';
+	      	          }
+	      	         if($jsonY['tienda']['carrousel']['bot2']!= ""){  // boton 2
+	      	            echo '<button type="button" class="btn btn-primary btn-lg">'.$jsonY['tienda']['carrousel']['bot2'].'</button>';
+	      	         } 
 	      	   ?>
 	      	   
            </div>
@@ -283,7 +244,8 @@ $(document).ready(function(){
             <img class="d-block d-sm-none  w-100"   src="<?php echo $jsonY['tienda']['carrousel']['fondoC']; // Fondo 2 ?>">
         </div>
     </div>
-       
+    
+    
     <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
         <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
         
@@ -293,56 +255,40 @@ $(document).ready(function(){
   
 </div>
 
+
 <!---------- BARRA DE COMENTARIOS O PROMOCIONES ////    JUMBOTRON ----->
 	<div class="jumbotron jumbotron-fluid fSubtitulo">
 	    <div class="container">
-		    <div class="row justify-content-md-center">
-		    
-		        <!--<h2 class="display-4"><?php echo $jsonY['tienda']['jumbotron']['jumboA']; ?></h2>-->
-		    	 <div class="col-md-2 text-center">
-			        <img src="img/visa.png" width="" height="60">
-		        </div>
-		        <div class="col-md-2 text-center">
-			        <img src="img/mastercard.png" height="60">
-		        </div>
-		        <div class="col-md-2 text-center">
-			        <img src="img/oxxo.png" height="80">
-		        </div>
-		        <div class="col-md-2 text-center">
-			        <img src="img/7eleven.jpeg" height="60">
-		        </div>
-		        <div class="col-md-2 text-center">
-			        <img src="img/paypal1.png" height="60">
-		        </div>
-	        
-		    </div>
+	        <h2 class="display-4"><?php echo $jsonY['tienda']['jumbotron']['jumboA']; ?></h2>
+	        <p class="lead">      <?php echo $jsonY['tienda']['jumbotron']['jumboB']; ?></p>
 	    </div>
 	</div>
-		
-<!------- BIENVENIDA ///// 
+	
+	
+	
+<!------- BIENVENIDA ///// ------>
 	<div class="container-fluid padding ">
 		<div class="row welcome text-center">
 			<div class="col-12 fTitulo">
 				
 				<?php   if($jsonY['tienda']['presentacion']['bienvenida'] != ""){
 				            echo '<h1 class="display-4">'.$jsonY['tienda']['presentacion']['bienvenida'].'</h1>';
-				        };
+				        }
 				?>	
 			</div>
 			<hr>
 			<div class="col-12 fSubtitulo">
 				<?php   if($jsonY['tienda']['presentacion']['texto'] != ""){
 				            echo '<p class="lead">'.$jsonY['tienda']['presentacion']['texto'].'</p>';
-				        };    
+				        }    
 				?>            
 				
 			</div>
 		</div>
 	</div>
 	
------>	
-	
-<!------- 3 IMAGENES QUE COLAPSAN EN 1 EN PANTALLAS DE CEL
+
+<!------- 3 IMAGENES QUE COLAPSAN EN 1 EN PANTALLAS DE CEL ------>
 	
 	<div class="container-fluid padding">
 		<div class="row text-center padding">
@@ -373,9 +319,6 @@ $(document).ready(function(){
 		</div>
 		
 	</div>
----->
-
-
 	    
 <!------------->
 
@@ -405,39 +348,12 @@ $(document).ready(function(){
       <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
     </div>
   </div>
-  <div class="card">
-    <img src="img/digiPopC.svg" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title fSubtitulo">Card title</h5>
-      <p class="card-text   fParrafo">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-  </div>
   
 </div>
 
-<!----------- slide testimonios --------------->
 
 
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" style="height: 60px;">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-        <!-- <img class="d-block w-100" src="img/7eleven.jpeg" alt="First slide" height="60"> -->
-        <p>texto 1</p>
-    </div>
-    <div class="carousel-item">
-        <!-- <img class="d-block w-100" src="img/visa.png" alt="Second slide" height="60">-->
-        <p>text 2</p>
-    </div>
-    <div class="carousel-item">
-        <!-- <img class="d-block w-100" src="img/mastercard.png" alt="Third slide" height="60"> -->
-        <P>texto 3</P>
-    </div>
-    <?php 
-        echo $arrayTestimoniosShow;
-    ?>
-  </div>
-</div>
+
 
 
 <!---- footer ------------->

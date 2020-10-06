@@ -16,10 +16,10 @@ $jsonX =       //json configuracion del sitio
 	        "seccion7" : ""
 	    },
 	    "carrousel" : {  
-		    "fondo1"  : "img/digiPop1.svg",
+		    "fondo1"  : "img/buda.jpeg",
 		    "fondo2"  : "img/digiPop2.svg",
 		    "fondo3"  : "img/digiPop3.svg",
-		    "fondoA"  : "img/digiPopA.svg",
+		    "fondoA"  : "img/buda.jpeg",
 		    "fondoB"  : "img/digiPopB.svg",
 		    "fondoC"  : "img/digiPopC.svg",
 		    "titulo"  : "INGRESA AL COMERCIO 3.0",

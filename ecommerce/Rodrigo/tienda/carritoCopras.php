@@ -1,1 +1,1 @@
-pañales talla 5 *** pañal *** $399 *** Disponible en Paquete *** 120p *** cantidad 3 *** https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.ytimg.com%2Fvi%2FQikM-2VV6JE%2Fmaxresdefault.jpg&f=1&nofb=1 *** 14-8-2020 19:03
+pañales talla 51 *** pañal *** 399 *** Disponible en Paquete *** 160p *** cantidad 1 *** https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fs3.amazonaws.com%2Fdigitaltrends-uploads-prod%2F2013%2F09%2FiPhone-5S-hands-on-home-angle.jpg&f=1&nofb=1 *** 3-10-2020 17:50

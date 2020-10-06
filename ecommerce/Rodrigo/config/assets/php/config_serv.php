@@ -126,23 +126,18 @@ $jsonConfigServicios = '
 	"catSlide" : {
         "catSlide1" : {
             "id"     : "1",
-            "titulo" : "titulo uno",
-            "visibilidades" : "si"
+            "titulo" : "titulo uno"
         },
         "catSlide2" : {
             "id"     : "2",
-            "titulo" : "titulo dos",
-            "visibilidades" : "si"
+            "titulo" : "titulo dos"
         },
         "catSlide3" : {
             "id"     : "3",
-            "titulo" : "titulo tres",
-            "visibilidades" : "no"
-        },
-        "catSlide4" : {
+            "titulo" : "titulo tres"
+        },"catSlide4" : {
             "id"     : "4",
-            "titulo" : "titulo cuatro",
-            "visibilidades" : "no"
+            "titulo" : "titulo cuatro"
         }
 	},
 	"nosotros" : {

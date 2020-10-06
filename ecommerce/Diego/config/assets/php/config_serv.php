@@ -26,43 +26,43 @@ $jsonConfigServicios = '
 	"contadorExito" : {
 		"exito1" : {
             "id": "1",
-            "texto"  : "texto exito 1",
-            "nombre" : "nombre del exito",
+            "texto"  : "10",
+            "nombre" : "Exito 1",
             "visibilidad" : "Si",
             "icono" : "fab fa-sellsy"
         },
         "exito2" : {
             "id": "2",
-            "texto"  : "texto exito 2",
-            "nombre" : "nombre del exito",
+            "texto"  : "20",
+            "nombre" : "Exito 2",
             "visibilidad" : "Si",
-            "icono" : "fas fa-fingerprint"
+            "icono" : "fab fa-apple"
         },
         "exito3" : {
             "id": "3",
-            "texto"  : "texto exito 3",
-            "nombre" : "nombre del exito",
+            "texto"  : "30",
+            "nombre" : "Exito 3",
             "visibilidad" : "Si",
             "icono" : "fas fa-handshake"
         },
         "exito4" : {
             "id": "4",
-            "texto"  : "texto exito 4",
-            "nombre" : "nombre del exito",
+            "texto"  : "40",
+            "nombre" : "Exito 4",
             "visibilidad" : "Si",
             "icono" : "fas fa-utensils"
         },
         "exito5" : {
             "id": "5",
-            "texto"  : "texto exito 5",
-            "nombre" : "nombre del exito",
+            "texto"  : "50",
+            "nombre" : "Exito 5",
             "visibilidad" : "Si",
             "icono" : "fas fa-thumbs-up"
         },
         "exito6" : {
             "id": "6",
-            "texto"  : "texto exito 6",
-            "nombre" : "nombre del exito",
+            "texto"  : "60",
+            "nombre" : "Exito 6",
             "visibilidad" : "No",
             "icono" : "fas fa-calendar-check"
         }
@@ -74,20 +74,20 @@ $jsonConfigServicios = '
         "link"      : "fuenteLink"
     },
     "colores" : {
-        "color1"   : "x1",
-        "color2"    : "x2",
-        "color3" : "x3",
-        "color4"      : "x4"
+        "color1" : "#E8DAEF",
+        "color2" : "#F2F3F4",
+        "color3" : "#515A5A",
+        "color4" : "#FFAE00"
     },
 	"logos" : {
-		"logo"    : "link logo",
+		"logo"    : "img/digiPop.svg",
 	    "favicom" : "link favicom"
     },
     "slides" : {
         "slide1" : {
             "id" : "1",  
             "slideCategoria" : "categoria1",
-            "foto"      : "link foto 1",
+            "foto"      : "img/buda.jpeg",
             "filtroFoto" : "Ninguno",
             "opacidad"  : "0.1",
             "titulo"    : "titulo 1",
@@ -106,7 +106,7 @@ $jsonConfigServicios = '
         "slide2" : {
             "id" : "2",  
             "slideCategoria" : "categoria2",
-            "foto"      : "link foto 2",
+            "foto"      : "img/digiPop3.svg",
             "filtroFoto" : "Sepia",
             "opacidad"  : "0.9",
             "titulo"    : "titulo 1",
@@ -126,31 +126,31 @@ $jsonConfigServicios = '
 	"catSlide" : {
         "catSlide1" : {
             "id"     : "1",
-            "titulo" : "titulo uno",
+            "titulo" : "Plomeria profesional",
             "visibilidades" : "si"
         },
         "catSlide2" : {
             "id"     : "2",
-            "titulo" : "titulo dos",
+            "titulo" : "Plomeria industrial",
             "visibilidades" : "si"
         },
         "catSlide3" : {
             "id"     : "3",
             "titulo" : "titulo tres",
             "visibilidades" : "no"
-        },
-        "catSlide4" : {
+
+        },"catSlide4" : {
             "id"     : "4",
             "titulo" : "titulo cuatro",
             "visibilidades" : "no"
         }
 	},
 	"nosotros" : {
-        "qOfrecemos"  : "ofrecemos esto",
-        "diferencial" : "diferenciador xplus",
-        "valores"     : "los mejores",   
-        "vision"  : "vision 1",
-        "mision"  : "mision 1",
+        "qOfrecemos"  : "Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.",
+        "diferencial" : "Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.",
+        "valores"     : "Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.",   
+        "vision"  : "Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.",
+        "mision"  : "Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.",
         "foto1"   : "link selfie 1",
         "foto2"   : "link selfie 2",
         "foto3"   : "link selfie 3",
@@ -159,7 +159,7 @@ $jsonConfigServicios = '
 	"equipo" : {
         "miembro1" : {
             "id" : "1",
-            "foto" : "link selfie 1",
+            "foto" : "./img/team1.png",
             "nombre" : "Diego",
             "rol"    : "developer",
             "texto"  : "texto 1",
@@ -171,7 +171,7 @@ $jsonConfigServicios = '
         },
         "miembro2" : {
             "id" : "2",
-            "foto" : "link selfie 2",
+            "foto" : "./img/team2.png",
             "nombre" : "Rodrigo",
             "rol"    : "developer",
             "texto"  : "texto 2",
@@ -189,7 +189,7 @@ $jsonConfigServicios = '
             "comentario"    : "muy bonito",
             "socialFuente"  : "facebook",
             "socialLink"    : "link red social",
-            "foto"          : "foto x",
+            "foto"          : "https://1.bp.blogspot.com/-b2WV7xXgR1g/Ucsb765Sg-I/AAAAAAAABxI/FTJXnz5OexU/s1600/IMG_1039.JPG",
             "estrellas"     : "3",
             "categoria"     : "servicio1"
         },
@@ -199,7 +199,7 @@ $jsonConfigServicios = '
             "comentario"    : "muy bonito",
             "socialFuente"  : "facebook",
             "socialLink"    : "link red social",
-            "foto"          : "foto x",
+            "foto"          : "https://i.ytimg.com/vi/ENbS7Y-j1kw/hqdefault.jpg",
             "estrellas"     : "5",
             "categoria"     : "servicio2"
         }
@@ -235,7 +235,7 @@ $jsonConfigServicios = '
         "googleTargetBody"    : "dato 2.2",
         "facebookPixel"   : "dato 3",
         "facebookMessenger" : "dato 4",
-        "googleMaps"      : "https://www.google.com.mx/maps/@23.2751104,-106.397696,14z",
+        "googleMaps"      : "23.2751104,-106.397696",
         "whatsapp"        : "dato 6"
     },
     "mediosPagos" : {

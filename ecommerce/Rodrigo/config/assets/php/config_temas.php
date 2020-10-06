@@ -1,1 +1,0 @@
-<?php $jsonConfig = '{"temas":{"colores":{"color1":"rgb(18, 57, 172)","color2":"rgb(255, 215, 0)","color3":"rgb(255, 122, 0)","color4":"rgb(6, 32, 112)"},"fuentes":{"titulo":"7","subtitulo":"7","parrafo":"7","link":"7"}}} '; ?>

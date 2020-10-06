@@ -2,14 +2,19 @@
 ob_start();// permite corregir error en header o salto a otra pagina
 session_start();
 
-require "secciones/json.php";
-require "secciones/jsonProductos1.php";
-$jsonY = json_decode($jsonX, true); // true regresa un array
-$jsonP = json_decode($jsonProductos,true);
-//echo '<br>';
-//print_r($jsonY);
-//echo '<br>';
-//echo $jsonY['tienda']['navVar']['logo'];
+//require "secciones/json.php";
+//require "secciones/jsonProductos1.php";
+//$jsonY = json_decode($jsonX, true); // true regresa un array
+//$jsonP = json_decode($jsonProductos,true);
+
+require('../config/assets/php/jsonProductos_x.php');
+require('../config/assets/php/config_ProductsBeta.php'); // configuracion del sitio 
+
+$jsonConfig   = json_decode($jsonConfigProductos, true); // array configuracion del sitio
+
+//////////// LOGOTIPO /////////////
+
+$logoUrl = $jsonConfig['config']['logos']['logo'];
 
 ///////// GALERIAS Y TITULO CAROUSEL   DE PRODUCTOS /////
 $jsonGalerias = json_decode( $tituloGalerias, true );
@@ -26,7 +31,112 @@ for($i = 0; $i < count($jsonGalerias['galerias']); $i++){        // for de los e
 	//echo $jsonGalerias['galerias'][$key].'<br>';
 	next($jsonGalerias['galerias']); // avanza una posicion en el selecctor de key's
 }
-	
+
+////////// TESTIMONIOS //////////////////
+$testimonioHTML = '';
+$active = 'active';
+for($i = 0; $i < count($jsonConfig['config']['testimonios']); $i++){ 
+    $keyT = key($jsonConfig['config']['testimonios']);
+    $nombreTestimonio = $jsonConfig['config']['testimonios'][$keyT]['nombreUsuario'];
+    $comentarioTestimonio = $jsonConfig['config']['testimonios'][$keyT]['comentario'];
+    $socialTestimonio = $jsonConfig['config']['testimonios'][$keyT]['socialFuente'];
+    $linkTestimonio   = $jsonConfig['config']['testimonios'][$keyT]['socialLink'];
+    $productoTestimonio = $jsonConfig['config']['testimonios'][$keyT]['nombreProducto'];
+    $fotoTestimonio = $jsonConfig['config']['testimonios'][$keyT]['foto'];
+    //************ HTLML
+    
+    if( $socialTestimonio == 'facebook'){
+	   $icono = '<i class="fab fa-facebook-square fa-3x"></i>'; 
+    } elseif ($socialTestimonio == 'twiter'){
+	   $icono = '<i class="fab fa-twitter-square fa-3x"></i>'; 
+    } else {
+	   $icono = '<i class="fas fa-newspaper fa-3x"></i>'; 
+    };
+    
+    
+    $testimonioHTML .= '
+	    <div class="carousel-item '.$active.'">
+	        <div class="row justify-content-md-center">
+			    <div class="col col-md-1 text-center">
+			        '. $icono .'
+			    </div>
+			    <div class="col-md-8">
+                    <p class="fParrafo">'. $comentarioTestimonio .'</p>
+                    <p class="fParrafo text-uppercase">'. $productoTestimonio .'</p> 
+			    </div>
+			    <div class="col col-md-3 col-6">
+			        <div class="col-sm-6  offset-lg-0  offset-md-0 offset-sm-10  offset-6 "> 
+					    <a href="'. $linkTestimonio .'" class="thumbnail">
+					        <div class="imageA">
+					            <img src="'. $fotoTestimonio .'" class="imgA imgA-responsive full-width" />
+					        </div>
+					        <div class="caption text-center fSubtitulo text-uppercase">
+					            '. $nombreTestimonio .'
+					        </div>
+					    </a>
+					</div>  
+			    </div>
+			</div>
+	    </div>';
+    
+    $active = '';
+    //*******************
+    next($jsonConfig['config']['testimonios']);
+};
+
+////////////////////// SLIDES ///////////////////////////
+
+$slides = '';
+$activeSlide ='active';
+for($i = 0; $i < count($jsonConfig['config']['slides']); $i++){  
+
+	$key = key($jsonConfig['config']['slides']);
+
+	$dato['foto'] = $jsonConfig['config']['slides'][$key]['foto'];
+	$dato['filtroFoto'] = $jsonConfig['config']['slides'][$key]['filtroFoto'];
+	$dato['opacidadFoto'] = $jsonConfig['config']['slides'][$key]['opacidad'];
+	$dato['titulo'] = $jsonConfig['config']['slides'][$key]['titulo'];
+	$dato['subtitulo'] = $jsonConfig['config']['slides'][$key]['subtitulo'];
+	$dato['texto'] = $jsonConfig['config']['slides'][$key]['texto'];
+	$dato['link'] = $jsonConfig['config']['slides'][$key]['link'];
+	$dato['botonTexto'] = $jsonConfig['config']['slides'][$key]['textoBtn'];
+	$dato['botonColor'] = $jsonConfig['config']['slides'][$key]['colorBtn'];
+	$dato['botonTipo'] = $jsonConfig['config']['slides'][$key]['tipoBtn'];
+	$dato['botonSombra'] = $jsonConfig['config']['slides'][$key]['sombraBtn'];
+	$dato['botonForm'] = $jsonConfig['config']['slides'][$key]['form'];
+
+	if( $dato['botonTexto'] != ''){
+       $botonShow = '<button type="button" class="btn btn-primary btn-lg fSubtitulo">'.$dato['botonTexto'].'</button>';
+	} else {
+		$botonShow = '';
+	};
+
+
+	$slides .='
+		<div class="carousel-item '.$activeSlide.'" 
+		
+		style= "background-image: url('.$dato['foto'].');
+				background-size: cover;
+				background-position:center;
+				height: 600px;"
+		>
+		<!--
+			<img class="d-none d-sm d-sm-block w-100" src="'.$dato['foto'].'" alt="digiPop" id="fondo1">
+			<img class="d-block d-sm-none  w-100"     src="'.$dato['foto'].'"               > -->
+     
+            <div class="carousel-caption">
+	      	    <h1 class="fSubtitulo">'.$dato['titulo'].'</h1>
+				<h3 class="fSubtitulo">'.$dato['subtitulo'].'</h3>
+				'.$botonShow.	    
+           '</div>
+        </div>';
+
+
+	////////////////////////////////////////
+	$activeSlide = '';
+	next($jsonConfig['config']['slides']);
+};
+
 
 ?>
 <!doctype html>
@@ -88,14 +198,14 @@ $(document).ready(function(){
 
 </head>
 
-<body>
+<body class="cFondo">
 
 <!---------- nav var ---------->
 
 <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
-	<div class="container-fluid pie" id="d1">
+	<div class="container-fluid fBarra fParrafo" id="d1">
 		<a class="navbar-brand" href="#">
-			<img src="<?php echo $jsonY['tienda']['navVar']['logo']; ?>" width="170px" height="55px" >
+			<img src="<?php echo $logoUrl; ?>" width="170px" height="55px" >
 		</a>
 		<button class="navbar-toggler"	type="button" data-toggle="collapse" data-target="#navbarResponsive">
 		    <span class="navbar-toggler-icon  "></span> <!-- <i class="material-icons" style="font-size:30px">menu</i></span> -->
@@ -105,38 +215,40 @@ $(document).ready(function(){
 			<ul class="navbar-nav ml-auto">
 				
 				<?php 
-					if($jsonY['tienda']['navVar']['inicio']!= ""){
+					// index
 					echo	
-					'<li class="nav-item ">
+					'<li class="nav-item active">
 					    <a class="nav-link" href="index.php">'
-					    .$jsonY['tienda']['navVar']['inicio'].
+					    .'Inicio'.
 					    '</a>
 					</li>';
-					} 
-					
-					// productos  /////  LISTA DE GALERIAS DISPONIBLES ///////// 
-					if($jsonY['tienda']['navVar']['seccion1']!= ""){
+					//} 
+
+					// productos galeria de productos
+					/////  LISTA DE GALERIAS DISPONIBLES /////////
 					echo	
-					'<li class="nav-item dropdown ">
+					'<li class="nav-item dropdown">
 					    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">'
-					    .$jsonY['tienda']['navVar']['seccion1'].
+					    .'Productos'.
 					    '</a>'.
-					    '<div class="dropdown-menu">'; 
-					         
-					for ($i=1; $i <= count($arrayGalerias); $i++ ){ // imprime las galerias que son necesarias
-						echo '<a class="dropdown-item" href="seccion1.php?galeria='.$i.'">'.$arrayGalerias[$i-1][0].'</a>';
+					    '<div class="dropdown-menu">';      
+					for ($i=1; $i <= count($jsonConfig['config']['catSlide']); $i++ ){ // imprime las galerias que son necesarias
+						$keyCat = key($jsonConfig['config']['catSlide']);
+						if($jsonConfig['config']['catSlide'][$keyCat]['visibilidades'] == 'si'){
+							echo '<a class="dropdown-item" href="seccion1.php?galeria='.$i.'">'.$jsonConfig['config']['catSlide'][$keyCat]['titulo'].'</a>';
+						}
+						next($jsonConfig['config']['catSlide']);
 					}
-					             
 					echo '</div>'.
 					'</li>';
-					} 
 					
-					// servicios
-				    if($jsonY['tienda']['navVar']['seccion2']!= ""){
+					
+					// servicios			    
+					
 					echo	
-					'<li class="nav-item dropdown active">
+					'<li class="nav-item dropdown">
 					    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="seccion2.php">'
-					    .$jsonY['tienda']['navVar']['seccion2'].
+					    .'Servicios'.
 					    '</a>'.
 					    '<div class="dropdown-menu">'.
 					       '<a class="dropdown-item" href="seccion2.php?servicioA=1" >Gratis</a>'.
@@ -144,13 +256,13 @@ $(document).ready(function(){
 					       '<a class="dropdown-item" href="seccion2.php?servicioA=3" >Pro</a>'.
 					    '</div>'.
 					'</li>';
-					}
-					// equipo			
-				    if($jsonY['tienda']['navVar']['seccion3']!= ""){
+					//}	
+				    // equipo			
+				
 					echo	
 					'<li class="nav-item dropdown">
 					    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="seccion3.php">'
-					    .$jsonY['tienda']['navVar']['seccion3'].
+					    .'Equipo'.
 					    '</a>'.
 					    '<div class="dropdown-menu">'.
 					       '<a class="dropdown-item" href="seccion3.php?equipo=1" >Nosotros</a>'.
@@ -158,39 +270,7 @@ $(document).ready(function(){
 					       '<a class="nav-link"      href="seccion3.php?equipo=3" ><i class="fas fa-envelope" style="font-size:26px;margin-left: 10%"></i></a>'.
 					    '</div>'.
 					'</li>';
-					}	
-					if($jsonY['tienda']['navVar']['seccion4']!= ""){
-					echo	
-					'<li class="nav-item ">
-					    <a class="nav-link" href="seccion4.php">'
-					    .$jsonY['tienda']['navVar']['seccion4'].
-					    '</a>
-					</li>';
-					} 
-				    if($jsonY['tienda']['navVar']['seccion5']!= ""){
-					echo	
-					'<li class="nav-item ">
-					    <a class="nav-link" href="seccion5.php">'
-					    .$jsonY['tienda']['navVar']['seccion5'].
-					    '</a>
-					</li>';
-					} 
-				    if($jsonY['tienda']['navVar']['seccion6']!= ""){
-					echo	
-					'<li class="nav-item ">
-					    <a class="nav-link" href="seccion6.php">'
-					    .$jsonY['tienda']['navVar']['seccion6'].
-					    '</a>
-					</li>';
-					} 
-				    if($jsonY['tienda']['navVar']['seccion7']!= ""){
-					echo	
-					'<li class="nav-item ">
-					    <a class="nav-link" href="seccion7.php">'
-					    .$jsonY['tienda']['navVar']['seccion7'].
-					    '</a>
-					</li>';
-					} 
+					
 				?>
 				
 				<li class="nav-item ">
@@ -201,23 +281,26 @@ $(document).ready(function(){
     </div>	
 </nav> 	
 
-<!------ Fondo fijo con scroll ------>
-
-	<figure class="container-fluid" style="height: 80%" >
-	    <div class="fixed-wrap" style="width: 100%;"> 
-		    <div class="carousel-caption"  >
-	      	   <h1 class="display-2">digiPop</h1>
-	      	   <h3>SERVICIOS WEB</h3>
-		    </div>
-		    <div id="fixed1" class="d-block d-sm-none  w-100"     style="background-image: url(img/digiPopServiciosV.svg);">			   
-		    </div>
-		    <div id="fixed2" class="d-none d-sm d-sm-block w-100" style="background-image: url(img/digiPopServiciosH.svg);">			   
-		    </div>
-	    </div>
-	</figure>
-
-<!--------------------------------->
-
+<!---------- IMAGENES SLIDE /// CAROUSEL -------->
+<div id="carouselExampleIndicators" class="carousel slide fTitulo" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    
+    <div class="carousel-inner ">
+	<?php echo $slides;?>
+    </div>
+    <!------------------>   
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
+        
+        <i class="fas fa-arrow-circle-right" style="width: 68px; height: 68px;color: #808080;"></i>
+        <span class="sr-only">Next</span>
+    </a>
+  
+</div>
 <!---------- BARRA DE COMENTARIOS O PROMOCIONES ////    JUMBOTRON ----->
 	<div class="jumbotron-fluid justify-content-center d-flex">
 	    <div class="col-md-10 ">
@@ -591,32 +674,67 @@ $(document).ready(function(){
   </div>
 </div>
 
-<!---- footer ------------->
-  <footer class="pt-4 my-md-5 pt-md-5 border-top">
-    <div class="row">
-      <div class="col-12 col-md" style="padding-left: 30px">
-        <img class="mb-2" src="img/digiPop.png" alt="" >
-        <small class="d-block mb-3 text-muted">© 2020</small>
-      </div>
-      <div class="col-4 col-md pie">
-        <h5>Nosotros</h5>
-        <ul class="list-unstyled text-small">
-          <li><a class="text-muted " href="#">Rodrigo</a></li>
-          <li><a class="text-muted " href="#">Diego</a></li>
-          <li><a class="text-muted " href="#">digiPop</a></li>
-          
-        </ul>
-      </div>
-      <div class="col-4 col-md pie">
-        <h5>Email</h5>
-        <ul class="list-unstyled text-small">
-          <li><a class="text-muted " href="#">roo@hhh.com</a></li>
-          <li><a class="text-muted " href="#">diego@hhh.com</a></li>
-          <li><a class="text-muted " href="#">consultas@hhh.com</a></li>
-        </ul>
-      </div>
-    </div>
-  </footer>
+<!----------- slide testimonios --------------->
+<hr>
+<div class="container">
+	<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+		<div class="carousel-inner">
+			<?php echo $testimonioHTML; ?>
+			
+		</div>
+	</div>
+</div>
+
+<!----------- formulario ------>
+
+<hr>
+<div class="container-fluid col">
+    <div class="jumbotron row " style="background-color:rgba(0,0,0,0);">
+		<div id="consulta" class="col">
+			<form class="row align-items-center">
+				<div class="form-group col-md-4">
+					<label for="exampleInputEmail1"class="fSubtitulo" >Email</label>
+					<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
+					<small id="emailHelp" class="form-text text-muted fParrafo">Dirección de correo.</small>
+				</div>
+				<div class="form-group col-md-5">
+					<label for="exampleInputPassword1" class="fSubtitulo">Comentarios</label>
+					<input type="text" class="form-control" id="exampleInputPassword1" placeholder="">
+					<small id="emailHelp" class="form-text text-muted fParrafo" >Envianos todas tus dudas sobre el servicio.</small>
+				</div>
+				<div class="col-md-3 ">
+					<button type="submit" id="preguntar" class="btn btn-primary w-100 fSubtitulo">ENVIAR</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+<!---- footer ----------->
+	<div class="bg-dark row fParrafo">
+		<div class="row">
+			<div class="col-12 col-md-6" style="padding-left: 30px">
+				<img class="mb-2" src="<?php echo $logoUrl;?>" alt="" >
+				<small class="d-block mb-3 text-muted">© 2020</small>
+			</div>
+			<div class="col-4 col-md-3">
+				<h5>Nosotros</h5>
+				<ul class="list-unstyled text-small">
+					<li><a class="text-muted" href="#">Rodrigo</a></li>
+					<li><a class="text-muted" href="#">Diego</a></li>
+					<li><a class="text-muted" href="#">digiPop</a></li>
+				</ul>
+			</div>
+			<div class="col-4 col-md-3">
+				<h5>Email</h5>
+				<ul class="list-unstyled text-small">
+				<li><a class="text-muted" href="#">roo@hhh.com</a></li>
+				<li><a class="text-muted" href="#">diego@hhh.com</a></li>
+				<li><a class="text-muted" href="#">consultas@hhh.com</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>	
+</div>
   
 </body>
 </html>

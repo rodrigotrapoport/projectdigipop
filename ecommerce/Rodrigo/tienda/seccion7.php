@@ -2,29 +2,18 @@
 ob_start();// permite corregir error en header o salto a otra pagina
 session_start();
 
-require "secciones/json.php";
-require "secciones/jsonProductos1.php";
-$jsonY = json_decode($jsonX, true); // true regresa un array
+//require "secciones/json.php";
+require('../config/assets/php/jsonProductos.php');
+require('../config/assets/php/config_Products.php'); // configuracion del sitio
+//require "key.php";
+
 $jsonP = json_decode($jsonProductos,true);
-//echo '<br>';
-//print_r($jsonY);
-//echo '<br>';
-//echo $jsonY['tienda']['navVar']['logo'];
-///////// GALERIAS Y TITULO CAROUSEL   DE PRODUCTOS /////
-$jsonGalerias = json_decode( $tituloGalerias, true );
-$arrayGalerias = array();
-for($i = 0; $i < count($jsonGalerias['galerias']); $i++){        // for de los elementos que estan en galerias
-	//echo key($jsonGalerias['galerias']).'<br>';
-	
-	$key = key($jsonGalerias['galerias']);  // selecciona la clave que contiene esa categoria
-	$arraySet1 = $jsonGalerias['galerias'][$key];
-	
-	$registroArray = array($arraySet1);
-	
-	array_push($arrayGalerias, $registroArray); // inserta el valor de la clave seleccionada
-	//echo $jsonGalerias['galerias'][$key].'<br>';
-	next($jsonGalerias['galerias']); // avanza una posicion en el selecctor de key's
-}
+$jsonConfig   = json_decode($jsonConfigProductos, true); // array configuracion del sitio
+
+//////////// LOGOTIPO /////////////
+
+$logoUrl = $jsonConfig['config']['logos']['logo'];
+
 
 	
 
@@ -176,7 +165,7 @@ $(document).ready(function(){
     
 </head>
 
-<body onload="carritoCliente();">
+<body onload="carritoCliente();" class="cFondo">
 	
 	
 	
@@ -184,7 +173,7 @@ $(document).ready(function(){
 <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top" >
 	<div class="container-fluid pie" id="d1">
 		<a class="navbar-brand" href="#">
-			<img src="<?php echo $jsonY['tienda']['navVar']['logo']; ?>" width="170px" height="55px">
+			<img src="<?php echo $logoUrl; ?>" width="170px" height="55px">
 		</a>
 		<button class="navbar-toggler"	type="button" data-toggle="collapse" data-target="#navbarResponsive">
 		    <span class="navbar-toggler-icon  "></span> <!-- <i class="material-icons" style="font-size:30px">menu</i></span> -->
@@ -195,91 +184,46 @@ $(document).ready(function(){
 				
 				<?php 
 					// index
-					if($jsonY['tienda']['navVar']['inicio']!= ""){
+					
 					echo	
 					'<li class="nav-item ">
 					    <a class="nav-link" href="index.php">'
-					    .$jsonY['tienda']['navVar']['inicio'].
+					    .'Inicio'.
 					    '</a>
 					</li>';
-					} 
+					
 					// productos  /////  LISTA DE GALERIAS DISPONIBLES ///////// 
-					if($jsonY['tienda']['navVar']['seccion1']!= ""){
 					echo	
 					'<li class="nav-item dropdown">
 					    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">'
-					    .$jsonY['tienda']['navVar']['seccion1'].
+					    .'Productos'.
 					    '</a>'.
-					    '<div class="dropdown-menu">'; 
-					         
-					for ($i=1; $i <= count($arrayGalerias); $i++ ){ // imprime las galerias que son necesarias
-						echo '<a class="dropdown-item" href="seccion1.php?galeria='.$i.'">'.$arrayGalerias[$i-1][0].'</a>';
+					    '<div class="dropdown-menu">';      
+					for ($i=1; $i <= count($jsonConfig['config']['catSlide']); $i++ ){ // imprime las galerias que son necesarias
+						$keyCat = key($jsonConfig['config']['catSlide']);
+						if($jsonConfig['config']['catSlide'][$keyCat]['visibilidades'] == 'si'){
+							echo '<a class="dropdown-item" href="seccion1.php?galeria='.$i.'">'.$jsonConfig['config']['catSlide'][$keyCat]['titulo'].'</a>';
+						}
+						next($jsonConfig['config']['catSlide']);
 					}
-					             
 					echo '</div>'.
-					'</li>';
-					} 
-					// servicios
-				    if($jsonY['tienda']['navVar']['seccion2']!= ""){
-					echo	
-					'<li class="nav-item dropdown">
-					    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="seccion2.php">'
-					    .$jsonY['tienda']['navVar']['seccion2'].
-					    '</a>'.
-					    '<div class="dropdown-menu">'.
-					       '<a class="dropdown-item" href="seccion2.php?servicioA=1" >Gratis</a>'.
-					       '<a class="dropdown-item" href="seccion2.php?servicioA=2" >Basico</a>'.
-					       '<a class="dropdown-item" href="seccion2.php?servicioA=3" >Pro</a>'.
-					    '</div>'.
-					'</li>';
-					}	
+					'</li>'; 	
+					 
+					
 				    // equipo			
-				    if($jsonY['tienda']['navVar']['seccion3']!= ""){
+				    
 					echo	
 					'<li class="nav-item dropdown">
 					    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="seccion3.php">'
-					    .$jsonY['tienda']['navVar']['seccion3'].
+					    .'Equipo'.
 					    '</a>'.
 					    '<div class="dropdown-menu">'.
 					       '<a class="dropdown-item" href="seccion3.php?equipo=1" >Nosotros</a>'.
-					       '<a class="dropdown-item" href="seccion3.php?equipo=2" >Nuestros Clientes</a>'.
 					       '<a class="nav-link"      href="seccion3.php?equipo=3" ><i class="fas fa-envelope" style="font-size:26px;margin-left: 10%"></i></a>'.
 					    '</div>'.
 					'</li>';
-					}	
-				    if($jsonY['tienda']['navVar']['seccion4']!= ""){
-					echo	
-					'<li class="nav-item ">
-					    <a class="nav-link" href="seccion4.php">'
-					    .$jsonY['tienda']['navVar']['seccion4'].
-					    '</a>
-					</li>';
-					} 
-				    if($jsonY['tienda']['navVar']['seccion5']!= ""){
-					echo	
-					'<li class="nav-item ">
-					    <a class="nav-link" href="seccion5.php">'
-					    .$jsonY['tienda']['navVar']['seccion5'].
-					    '</a>
-					</li>';
-					} 
-				    if($jsonY['tienda']['navVar']['seccion6']!= ""){
-					echo	
-					'<li class="nav-item ">
-					    <a class="nav-link" href="seccion6.php">'
-					    .$jsonY['tienda']['navVar']['seccion6'].
-					    '</a>
-					</li>';
-					} 
-					// checkout
-				    if($jsonY['tienda']['navVar']['seccion7']!= ""){
-					echo	
-					'<li class="nav-item ">
-					    <a class="nav-link" href="seccion7.php">'
-					    .$jsonY['tienda']['navVar']['seccion7'].
-					    '</a>
-					</li>';
-					} 
+						
+				    
 				?>
 				
 				<li class="nav-item ">
@@ -303,8 +247,8 @@ $(document).ready(function(){
 <!------ botones ----->
 <div class="container">
 	<div class="btn-group" role="group" aria-label="Basic example">
-	  <button type="button" class="btn btn-primary ">PAGAR EN CAJA</button>
-	  <button type="button" class="btn btn-secondary " id="borrar" >BORRAR</button>
+	  <button type="button" class="btn btn-primary align-text-top">PAGAR <i class='far fa-credit-card fa-2x align-bottom'></i></button>
+	  <button type="button" class="btn btn-secondary " id="borrar" >VACIAR</button>
 	</div>
 </div>
 <br>
@@ -873,32 +817,57 @@ function tienda(){
 </script>
 
 <br>
-<!---- footer ------------->
-  <footer class="pt-4 my-md-5 pt-md-5 border-top">
-    <div class="row">
-      <div class="col-12 col-md" style="padding-left: 30px">
-        <img class="mb-2" src="img/digiPop.png" alt="" >
-        <small class="d-block mb-3 text-muted">© 2020</small>
-      </div>
-      <div class="col-4 col-md pie">
-        <h5>Nosotros</h5>
-        <ul class="list-unstyled text-small">
-          <li><a class="text-muted " href="#">Rodrigo</a></li>
-          <li><a class="text-muted " href="#">Diego</a></li>
-          <li><a class="text-muted " href="#">digiPop</a></li>
-          
-        </ul>
-      </div>
-      <div class="col-4 col-md pie">
-        <h5>Email</h5>
-        <ul class="list-unstyled text-small">
-          <li><a class="text-muted " href="#">roo@hhh.com</a></li>
-          <li><a class="text-muted " href="#">diego@hhh.com</a></li>
-          <li><a class="text-muted " href="#">consultas@hhh.com</a></li>
-        </ul>
-      </div>
-    </div>
-  </footer>
+<!----------- formulario ------>
+
+<hr>
+<div class="container-fluid col">
+    <div class="jumbotron row " style="background-color:rgba(0,0,0,0);">
+		<div id="consulta" class="col">
+			<form class="row align-items-center">
+				<div class="form-group col-md-4">
+					<label for="exampleInputEmail1"class="fSubtitulo" >Email</label>
+					<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
+					<small id="emailHelp" class="form-text text-muted fParrafo">Dirección de correo.</small>
+				</div>
+				<div class="form-group col-md-5">
+					<label for="exampleInputPassword1" class="fSubtitulo">Comentarios</label>
+					<input type="text" class="form-control" id="exampleInputPassword1" placeholder="">
+					<small id="emailHelp" class="form-text text-muted fParrafo" >Envianos todas tus dudas sobre el servicio.</small>
+				</div>
+				<div class="col-md-3 ">
+					<button type="submit" id="preguntar" class="btn btn-primary w-100 fSubtitulo">ENVIAR</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+<!---- footer ----------->
+	<div class="bg-dark row fParrafo">
+		<div class="row">
+			<div class="col-12 col-md-6" style="padding-left: 30px">
+				<img class="mb-2" src="<?php echo $logoUrl;?>" alt="" >
+				<small class="d-block mb-3 text-muted">© 2020</small>
+			</div>
+			<div class="col-4 col-md-3">
+				<h5>Nosotros</h5>
+				<ul class="list-unstyled text-small">
+					<li><a class="text-muted" href="#">Rodrigo</a></li>
+					<li><a class="text-muted" href="#">Diego</a></li>
+					<li><a class="text-muted" href="#">digiPop</a></li>
+				</ul>
+			</div>
+			<div class="col-4 col-md-3">
+				<h5>Email</h5>
+				<ul class="list-unstyled text-small">
+				<li><a class="text-muted" href="#">roo@hhh.com</a></li>
+				<li><a class="text-muted" href="#">diego@hhh.com</a></li>
+				<li><a class="text-muted" href="#">consultas@hhh.com</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>	
+</div>	
+
 
 </body>
 </html>

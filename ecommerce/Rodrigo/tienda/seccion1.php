@@ -2,16 +2,17 @@
 ob_start();// permite corregir error en header o salto a otra pagina
 session_start();
 
-require "secciones/json.php";
-require "secciones/jsonProductos1.php";
+//require "secciones/json.php";
+require('../config/assets/php/jsonProductos.php');
+require('../config/assets/php/config_Products.php'); // configuracion del sitio
 require "key.php";
-//var_dump($jsonX);
-$jsonY = json_decode($jsonX, true);        // true regresa un array
+
 $jsonP = json_decode($jsonProductos,true);
-//echo '<br>';
-//print_r($jsonY);
-//echo '<br>';
-//echo $jsonY['tienda']['navVar']['logo'];
+$jsonConfig   = json_decode($jsonConfigProductos, true); // array configuracion del sitio
+
+//////////// LOGOTIPO /////////////
+
+$logoUrl = $jsonConfig['config']['logos']['logo'];
 
 /////////// SIN SELECCION DE CATEGORIA /////
 if(isset($_GET['galeria'])) { 
@@ -20,45 +21,110 @@ if(isset($_GET['galeria'])) {
 	$indexGaleria = 1;
 }
 
-///////// GALERIAS Y TITULO CAROUSEL /////
-$jsonGalerias  = json_decode( $tituloGalerias, true );
-$arrayGalerias = array();
-for($i = 0; $i < count($jsonGalerias['galerias']); $i++){        // for de los elementos que estan en galerias
-	//echo key($jsonGalerias['galerias']).'<br>';
-	
-	$key = key($jsonGalerias['galerias']);  // selecciona la clave que contiene esa categoria
-	$arraySet1 = $jsonGalerias['galerias'][$key];
-	
-	$registroArray = array($arraySet1);
-	
-	array_push($arrayGalerias, $registroArray); // inserta el valor de la clave seleccionada
-	//echo $jsonGalerias['galerias'][$key].'<br>';
-	next($jsonGalerias['galerias']); // avanza una posicion en el selecctor de key's
-}
-/////// FOTOS CAROUSEL /////
-$arrayFotos = array();
-for($i = 0; $i < count($jsonGalerias['fotos']); $i++){
-	$key = key($jsonGalerias['fotos']);  // selecciona la clave de las fotos del carousel
-	$keyFotosX = $jsonGalerias['fotos'][$key];
-    $registroArrayFotos = array($keyFotosX);
-    array_push($arrayFotos, $registroArrayFotos); // registro que guarda las fotos del carousel
-    //echo $jsonGalerias['fotos'][$key].'<br>';
-    next($jsonGalerias['fotos']);
-}
+////////////////////// SLIDES ///////////////////////////
 
-/*
-for($i=0; $i < count($arrayGalerias); $i++ ){
-	echo $arrayGalerias[$i].'<br>';
-}
-*/
+$slides = '';
+$activeSlide ='active';
+for($i = 0; $i < count($jsonConfig['config']['slides']); $i++){  
 
-/*
-for($i=0; $i < count($arrayFotos); $i++ ){
-	echo $arrayFotos[$i][0].'<br>';
-}
-*/
+	$key = key($jsonConfig['config']['slides']);
 
-//var_dump($arrayFotos);
+	$dato['foto'] = $jsonConfig['config']['slides'][$key]['foto'];
+	$dato['filtroFoto'] = $jsonConfig['config']['slides'][$key]['filtroFoto'];
+	$dato['opacidadFoto'] = $jsonConfig['config']['slides'][$key]['opacidad'];
+	$dato['titulo'] = $jsonConfig['config']['slides'][$key]['titulo'];
+	$dato['subtitulo'] = $jsonConfig['config']['slides'][$key]['subtitulo'];
+	$dato['texto'] = $jsonConfig['config']['slides'][$key]['texto'];
+	$dato['link'] = $jsonConfig['config']['slides'][$key]['link'];
+	$dato['botonTexto'] = $jsonConfig['config']['slides'][$key]['textoBtn'];
+	$dato['botonColor'] = $jsonConfig['config']['slides'][$key]['colorBtn'];
+	$dato['botonTipo'] = $jsonConfig['config']['slides'][$key]['tipoBtn'];
+	$dato['botonSombra'] = $jsonConfig['config']['slides'][$key]['sombraBtn'];
+	$dato['botonForm'] = $jsonConfig['config']['slides'][$key]['form'];
+
+	if( $dato['botonTexto'] != ''){
+       $botonShow = '<button type="button" class="btn btn-primary btn-lg fSubtitulo">'.$dato['botonTexto'].'</button>';
+	} else {
+		$botonShow = '';
+	};
+
+
+	$slides .='
+		<div class="carousel-item '.$activeSlide.'" 
+		
+		style= "background-image: url('.$dato['foto'].');
+				background-size: cover;
+				background-position:center;
+				height: 600px;"
+		>
+		<!--
+			<img class="d-none d-sm d-sm-block w-100" src="'.$dato['foto'].'" alt="digiPop" id="fondo1">
+			<img class="d-block d-sm-none  w-100"     src="'.$dato['foto'].'"               > -->
+     
+            <div class="carousel-caption">
+	      	    <h1 class="fSubtitulo">'.$dato['titulo'].'</h1>
+				<h3 class="fSubtitulo">'.$dato['subtitulo'].'</h3>
+				'.$botonShow.	    
+           '</div>
+        </div>';
+
+
+	////////////////////////////////////////
+	$activeSlide = '';
+	next($jsonConfig['config']['slides']);
+};
+
+////////// TESTIMONIOS //////////////////
+$testimonioHTML = '';
+$active = 'active';
+for($i = 0; $i < count($jsonConfig['config']['testimonios']); $i++){ 
+    $keyT = key($jsonConfig['config']['testimonios']);
+    $nombreTestimonio = $jsonConfig['config']['testimonios'][$keyT]['nombreUsuario'];
+    $comentarioTestimonio = $jsonConfig['config']['testimonios'][$keyT]['comentario'];
+    $socialTestimonio = $jsonConfig['config']['testimonios'][$keyT]['socialFuente'];
+    $linkTestimonio   = $jsonConfig['config']['testimonios'][$keyT]['socialLink'];
+    $productoTestimonio = $jsonConfig['config']['testimonios'][$keyT]['nombreProducto'];
+    $fotoTestimonio = $jsonConfig['config']['testimonios'][$keyT]['foto'];
+    //************ HTLML
+    
+    if( $socialTestimonio == 'facebook'){
+	   $icono = '<i class="fab fa-facebook-square fa-3x"></i>'; 
+    } elseif ($socialTestimonio == 'twiter'){
+	   $icono = '<i class="fab fa-twitter-square fa-3x"></i>'; 
+    } else {
+	   $icono = '<i class="fas fa-newspaper fa-3x"></i>'; 
+    };
+    
+    
+    $testimonioHTML .= '
+	    <div class="carousel-item '.$active.'">
+	        <div class="row justify-content-md-center">
+			    <div class="col col-md-1 text-center">
+			        '. $icono .'
+			    </div>
+			    <div class="col-md-8">
+                    <p class="fParrafo">'. $comentarioTestimonio .'</p>
+                    <p class="fParrafo text-uppercase">'. $productoTestimonio .'</p> 
+			    </div>
+			    <div class="col col-md-3 col-6">
+			        <div class="col-sm-6  offset-lg-0  offset-md-0 offset-sm-10  offset-6 "> 
+					    <a href="'. $linkTestimonio .'" class="thumbnail">
+					        <div class="imageA">
+					            <img src="'. $fotoTestimonio .'" class="imgA imgA-responsive full-width" />
+					        </div>
+					        <div class="caption text-center fSubtitulo text-uppercase">
+					            '. $nombreTestimonio .'
+					        </div>
+					    </a>
+					</div>  
+			    </div>
+			</div>
+	    </div>';
+    
+    $active = '';
+    //*******************
+    next($jsonConfig['config']['testimonios']);
+};
 	
 ?>
 
@@ -84,7 +150,7 @@ for($i=0; $i < count($arrayFotos); $i++ ){
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script> <!---- iconos fa-code -->
 	
-	<link href="css/style.php" rel="stylesheet">
+	<link href="./css/style.php" rel="stylesheet">
 	
 	<link rel="stylesheet" href="bspop/bs4.pop.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -122,13 +188,13 @@ $(document).ready(function(){
 
 </head>
 
-<body>
+<body class="cFondo">
 
 <!---------- nav var ---------->	
 <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
-	<div class="container-fluid pie" id="d1">
+	<div class="container-fluid fBarra fParrafo" id="d1">
 		<a class="navbar-brand" href="#">
-			<img src="<?php echo $jsonY['tienda']['navVar']['logo']; ?>" width="170px" height="55px">
+			<img src="<?php echo $logoUrl; ?>" width="170px" height="55px">
 		</a>
 		<button class="navbar-toggler"	type="button" data-toggle="collapse" data-target="#navbarResponsive">
 		    <span class="navbar-toggler-icon  "></span> <!-- <i class="material-icons" style="font-size:30px">menu</i></span> -->
@@ -139,95 +205,41 @@ $(document).ready(function(){
 				
 				<?php
 					// index 
-					if($jsonY['tienda']['navVar']['inicio']!= ""){
 					echo	
-					'<li class="nav-item ">
+					'<li class="nav-item active">
 					    <a class="nav-link" href="index.php">'
-					    .$jsonY['tienda']['navVar']['inicio'].
+					    .'Inicio'.
 					    '</a>
-					</li>';
-					} 
+					</li>'; 
 					
 					// productos  /////  LISTA DE GALERIAS DISPONIBLES ///////// 
-					if($jsonY['tienda']['navVar']['seccion1']!= ""){
-					echo	
-					'<li class="nav-item dropdown active">
-					    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">'
-					    .$jsonY['tienda']['navVar']['seccion1'].
-					    '</a>'.
-					    '<div class="dropdown-menu">'; 
-					         
-					for ($i=1; $i <= count($arrayGalerias); $i++ ){ // imprime las galerias que son necesarias
-						echo '<a class="dropdown-item" href="seccion1.php?galeria='.$i.'">'.$arrayGalerias[$i-1][0].'</a>';
-					}
-					             
-					echo '</div>'.
-					'</li>';
-					} 
-					
-					
-					// servicios
-				    if($jsonY['tienda']['navVar']['seccion2']!= ""){
 					echo	
 					'<li class="nav-item dropdown">
 					    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">'
-					    .$jsonY['tienda']['navVar']['seccion2'].
+					    .'Productos'.
 					    '</a>'.
-					    '<div class="dropdown-menu">'.
-					       '<a class="dropdown-item" href="seccion2.php?servicioA=1" >Gratis</a>'.
-					       '<a class="dropdown-item" href="seccion2.php?servicioA=2" >Basico</a>'.
-					       '<a class="dropdown-item" href="seccion2.php?servicioA=3" >Pro</a>'   .
-					    '</div>'.
-					'</li>';
-					}	
+					    '<div class="dropdown-menu">';      
+					for ($i=1; $i <= count($jsonConfig['config']['catSlide']); $i++ ){ // imprime las galerias que son necesarias
+						$keyCat = key($jsonConfig['config']['catSlide']);
+						if($jsonConfig['config']['catSlide'][$keyCat]['visibilidades'] == 'si'){
+							echo '<a class="dropdown-item" href="seccion1.php?galeria='.$i.'">'.$jsonConfig['config']['catSlide'][$keyCat]['titulo'].'</a>';
+						}
+						next($jsonConfig['config']['catSlide']);
+					}
+					echo '</div>'.
+					'</li>'; 	
 					
 				    // equipo			
-				    if($jsonY['tienda']['navVar']['seccion3']!= ""){
-					echo	
+				    echo	
 					'<li class="nav-item dropdown">
 					    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="seccion3.php">'
-					    .$jsonY['tienda']['navVar']['seccion3'].
+					    .'Equipo'.
 					    '</a>'.
 					    '<div class="dropdown-menu">'.
 					       '<a class="dropdown-item" href="seccion3.php?equipo=1" >Nosotros</a>'.
-					       '<a class="dropdown-item" href="seccion3.php?equipo=2" >Nuestros Clientes</a>'.
 					       '<a class="nav-link"      href="seccion3.php?equipo=3" ><i class="fas fa-envelope" style="font-size:26px;margin-left: 10%"></i></a>'.
 					    '</div>'.
 					'</li>';
-					}	
-				    if($jsonY['tienda']['navVar']['seccion4']!= ""){
-					echo	
-					'<li class="nav-item ">
-					    <a class="nav-link" href="seccion4.php">'
-					    .$jsonY['tienda']['navVar']['seccion4'].
-					    '</a>
-					</li>';
-					} 
-				    if($jsonY['tienda']['navVar']['seccion5']!= ""){
-					echo	
-					'<li class="nav-item ">
-					    <a class="nav-link" href="seccion5.php">'
-					    .$jsonY['tienda']['navVar']['seccion5'].
-					    '</a>
-					</li>';
-					} 
-				    if($jsonY['tienda']['navVar']['seccion6']!= ""){
-					echo	
-					'<li class="nav-item ">
-					    <a class="nav-link" href="seccion6.php">'
-					    .$jsonY['tienda']['navVar']['seccion6'].
-					    '</a>
-					</li>';
-					}
-					// checkout 
-				    if($jsonY['tienda']['navVar']['seccion7']!= ""){
-					echo	
-					'<li class="nav-item ">
-					    <a class="nav-link" href="seccion7.php">'
-					    .$jsonY['tienda']['navVar']['seccion7'].
-					    '</a>
-					</li>';
-					} 
 				?>
 				
 				<li class="nav-item ">
@@ -242,54 +254,17 @@ $(document).ready(function(){
 
 
 <!---------- IMAGENES SLIDE /// CAROUSEL -------->
-<div id="carouselExampleIndicators" class="carousel slide " data-ride="carousel" >
+<div id="carouselExampleIndicators" class="carousel slide fTitulo" data-ride="carousel">
     <ol class="carousel-indicators">
-	    <?php
-	        for($i=0; $i < count($arrayGalerias); $i++){ // botones inferiores del slide
-		        echo  '<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>';
-	        }        
-	    ?>
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
     </ol>
     
-    
-    
-    
-    
-    <div class="carousel-inner" >
-	      
-	    <?php 
-		    
-		for ($iM=0 ; $iM < count($arrayGalerias) ; $iM++ ){   // for CON EL TOTAL DE GALERIAS DISPONIBLES
-		    
-		    echo '<div class="carousel-item '; // div #1
-		    
-		    if(  $indexGaleria == ($iM+1) ) { 
-			   echo 'active ">';
-			}  else {
-			   echo ' ">';
-			};
-
-			//******************************
-
-            echo '<img id="fondo1" src="'.$arrayFotos[($iM)][0][0].'" class="d-none d-sm d-sm-block w-100" alt="...">'; // PC Horizontal  $arrayFotos[$i][0]
-			
-			echo '<img class="d-block d-sm-none  w-100"   src="'.$arrayFotos[($iM)][0][1].'">';  // Cel Vertical
-		    
-		    echo '<div class="carousel-caption">'; // div #2
-		    
-		    echo '<h1 class="display-2">'.$arrayGalerias[$iM][0].'</h1>'; // selecciona el titulo del arrayGalerias
-		    
-		    echo '</div>'; // div #2 
-		    
-		    echo '</div>'; // div #1 
-		    
-		}   
-		?>
-		
+    <div class="carousel-inner ">
+	<?php echo $slides;?>
     </div>
-	
-	
-    
+    <!------------------>   
     <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
         <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
         
@@ -299,99 +274,32 @@ $(document).ready(function(){
   
 </div>
 
-
 <!------------ productos ----------->
 
-
-<!---------- array en php -------->
-
 <?php 
-	/*
-	echo count($jsonY['tienda']).' objetos del array<br>';  
-	  
-    $max = sizeof($jsonY['tienda']);
-	
-    echo '<br>*******************<br>';
     
-	for($i = 0; $i < count($jsonY['tienda']); $i++){
-	    $k[$i] = key($jsonY['tienda']);
-	    echo($k[$i]).'<br>';
-	    next($jsonY['tienda']);
-	}
-	*/
-	/*
-	echo '<br>****************  Productos ***<br>';
-	
-	echo count($jsonP['productos']).' objetos del array<br>';   // registros del array
-	
-	for($i = 0; $i < count($jsonP['productos']); $i++){ // ingresa al segundo nivel / el for es por los 3 articulos que contiene
-		
-	    $k = key($jsonP['productos']); // key nivel 2
-	    
-	    echo($k).' (segundo nivel)-> ';
-	    
-	    echo '<br><br>';
-	    
-	    for ($j = 0; $j < count($jsonP['productos'][$k]); $j++ ) { // ingresa al tercer nivel / el for es por la cantidad de subregistros que contiene el nivel anterior
-	        $L = key($jsonP['productos'][$k]); // key nivel 3
-	        echo $L.' (tercer nivel)-> ';
-	        next($jsonP['productos'][$k]);   // pasa al siguiente registro nivel 3
-	        echo '<br>';
-             
-             
-             
-            for ($jA = 0; $jA < count($jsonP['productos'][$k][$L]); $jA++ ) { // ingresa al tercer nivel / el for es por la cantidad de subregistros que contiene el nivel anterior
-		        $M = key($jsonP['productos'][$k][$L]); // key nivel 3
-		        echo $M.' (cuarto nivel)-> ';          // valor del cuarto nivel
-		        echo $jsonP['productos'][$k][$L][$M];
-		        next($jsonP['productos'][$k][$L]);     // pasa al siguiente registro nivel 3
-		        echo '<br>';                
-	            
-		    }reset($jsonP['productos'][$k][$L]); // resetea el contador del tercer nivel
-		     echo '<br>';
-               
-	    }reset($jsonP['productos'][$k]); // resetea contador del segundo nivel
-	    
-	    next($jsonP['productos']); // pasa al siguiente registro del array nivel 2
-	    echo '<br>';
-	}
-    reset($jsonP['productos']); // resetea el numero de celda del array ya que la busqueda cambia el valor por defecto	
-    
-    */
-    
-    //echo '****************** ranking precios *************<br>';	
+    //****************** ranking precios *************	
     
     $rankingPrecios = array();          // lista para ordenar por precios
-    $rankingPreciosArticulos = array(); // lista para saber que productos son en relaciona a los precu¡ios
-    
+    $rankingPreciosArticulos = array(); // lista para saber que productos son en relaciona a los precios
+	
+	/////// cantidad de galerias /////
     for($i = 0; $i < count($jsonP['productos']); $i++){ // ingresa al segundo nivel / el for es por los 3 articulos que contiene
-	    
+		
+		///////// clave de cada galeria /////
 	    $k = key($jsonP['productos']); // key nivel 2 que son las galerias...
-	    
-	    //echo($k).' (segundo nivel)-> ';
-	    //echo '<br><br>';
-	     
+		 
+		//////////// recorre dentro de cada galeria /////
 	    for ($j = 0; $j < count($jsonP['productos'][$k]); $j++ ) { // ingresa al tercer nivel / el for es por la cantidad de subregistros que contiene el nivel anterior
-	        $L = key($jsonP['productos'][$k]); // key nivel 3 que es la lista de productos de cada galeria
+			/////// selecciona los datos finales //////
+			$L = key($jsonP['productos'][$k]); // key nivel 3 que es la lista de productos de cada galeria
 	        //echo $L.' (tercer nivel)-> ';
 	        //echo $jsonP['productos'][$k][$L];
 	        next($jsonP['productos'][$k]);   // pasa al siguiente registro nivel 3
-	        //echo '<br>';     
-             
-            /*
-            for ($jA = 0; $jA < count($jsonP['productos'][$k][$L]); $jA++ ) { // ingresa al tercer nivel / el for es por la cantidad de subregistros que contiene el nivel anterior
-		        $M = key($jsonP['productos'][$k][$L]); // key nivel 3
-		        echo $M.' (cuarto nivel)-> ';          // valor del cuarto nivel
-		        echo $jsonP['productos'][$k][$L][$M];
-		        next($jsonP['productos'][$k][$L]);     // pasa al siguiente registro nivel 3
-		        echo '<br>';
-	                        
-	            
-		    }
-		    reset($jsonP['productos'][$k][$L]); // resetea el contador del tercer nivel
-		    */
-            // precios minimos
-		    $minimoA = $jsonP['productos'][$k][$L]['precioA'];      // 0
+	         
+            // precios sin descuento
+			$minimoA = $jsonP['productos'][$k][$L]['precioA'];      // 0
+			// precios con descuento
 		    $minimoB = $jsonP['productos'][$k][$L]['precioB'];
 		    // ruta de los articulos
 		    $rutaDelArticulo = '$jsonP[productos]['.$k.']['.$L.']'; // 1
@@ -436,58 +344,17 @@ $(document).ready(function(){
 	}
     reset($jsonP['productos']); // resetea el numero de celda del array ya que la busqueda cambia el valor por defecto	
 
-    //print_r($rankingPrecios);
-    //echo '<br>';
-    //print_r($rankingPreciosArticulos);
-    //echo '<br>*****************<br><br>';
     sort($rankingPrecios);
-    //print_r($rankingPrecios);
-    //echo '<br> xxxxxxxxx <br>';
-    
-    /// ******* control del registro *******
-    /*
-    for ($i=0; $i < count($rankingPrecios); $i++){
-	    if($rankingPrecios[$i][15] == 'galeria'.$indexGaleria){
-	        echo $rankingPrecios[$i][0].' -- '.$rankingPrecios[$i][4].' -- '.$rankingPrecios[$i][2].' -- '.$rankingPrecios[$i][13].'<br>';
-	    }
-    }
-    */   	
+    	
 ?>
 
-<div class="row">
+<div class="row ">
 	<div class="col-12"><!---- titulo ------>
 	
 	    <!-- Heading -->
 	    
-	    	<h2 class="mb-10 text-center"> 
+	    	<h2 class="mb-10 text-center text-uppercase fSubtitulo"> 
 		    	<?php
-			    	/* 
-			        if(isset($_GET['galeria']) AND $_GET['galeria']==1) { 
-				        $categoria = $_GET['galeria'] ;
-				    } else {
-					    $categoria = '1';
-					}
-					if(isset($_GET['galeria']) AND $_GET['galeria']==2) { 
-				        $categoria = $_GET['galeria'] ;
-				    } else {
-					    $categoria = '1';
-					}
-					if(isset($_GET['galeria']) AND $_GET['galeria']==2) { 
-				        $categoria = $_GET['galeria'] ;
-				    } else {
-					    $categoria = '1';
-					}
-					if(isset($_GET['galeria']) AND $_GET['galeria']==2) { 
-				        $categoria = $_GET['galeria'] ;
-				    } else {
-					    $categoria = '1';
-					}
-					if(isset($_GET['galeria']) AND $_GET['galeria']==2) { 
-				        $categoria = $_GET['galeria'] ;
-				    } else {
-					    $categoria = '1';
-					}
-					*/	
 					
 					switch ($indexGaleria) {  
 					    case 1:
@@ -540,40 +407,26 @@ $(document).ready(function(){
 					        break;
 					}
 					
+					echo $jsonConfig['config']['catSlide']['catSlide'.$categoria]['titulo'];
 					
-		    	    echo ' '.$jsonP['productos']['galeria'.$categoria]['producto1']['galeria'];   // TITULO DE LA CATEGORIA
+                    if (array_key_exists('galeria'.$categoria, $jsonP['productos'])) {
+						//echo " existe";
+						//echo ' '.$jsonP['productos']['galeria'.$categoria]['producto1']['galeria'];   // TITULO DE LA CATEGORIA
+					} else {
+						echo '<p class="fSubtitulo">LA GALERIA NO CONTIENE ARTICULOS</p>';
+					}
+
 		    	?>
 		    	
 		    </h2>
 	
 	</div>
 </div>
-
-	        
-<div class="row justify-content-center padding "> <!--- marco de todos los productos --->
+<div class="container-fluid">        
+<div class="row justify-content-center padding"> <!--- marco de todos los productos --->
 	
     <?php 
 	 
-	// echo count($jsonP['productos']['galeria'.$categoria]); // cantidad de productos registrados en dicha categoria
-	/*   
-	for($i = 0; $i < count($jsonP['productos']['galeria'.$categoria]); $i++){ ////  FOR DE LA CANTIDAD DE ELEMENTOS DE LA GALERIA SELECCIONADA
-		
-		$k = key($jsonP['productos']['galeria'.$categoria]); // key nivel 3
-	    
-	    // echo($k).' (segundo nivel)-> '; // categorias por productos
-	
-	    // Oferta
-	    $dato1 = $jsonP['productos']['galeria'.$categoria][$k]['oferta']; // seleccion correcta de los datos de cada articulo
-	
-	    //echo $dato1.' oferta ';
-		
-		if ($dato1 == 'si') {
-			$oferta =   '<div class="badge badge-dark card-badge card-badge-left text-uppercase">OFERTA</div>';
-		} else { 
-			$oferta = '';	
-		}  
-	*/
-	
 	for ($i=0; $i < count($rankingPrecios); $i++){ // la cantidad de objetos es la de cada categoria y de productos
 		
 	    if($rankingPrecios[$i][15] == 'galeria'.$indexGaleria ){ // compara el numero que llega por get con la galeria correspondiente
@@ -582,7 +435,7 @@ $(document).ready(function(){
 	        if( $rankingPrecios[$i][12] == 'si' ){ // consulta si hay oferta y agrega el comentario
 		       $oferta =   '<div class="badge badge-dark card-badge card-badge-left text-uppercase">OFERTA</div>'; 
 	        } else {
-		        $oferta = '';
+		        $oferta = '<hr>';
 	        }
 	        
 	        // IF DE PRECIOS 
@@ -594,7 +447,6 @@ $(document).ready(function(){
 	                    <p>
 	                        <h2><span class="text-primary">'.$rankingPrecios[$i][17].'</span></h2>
 	                    </p>';  
-	            
 	            
 	            /// fuentes para modal        
 	            $h1A = '<h5><s>';  // con descuento el primer precio se ve pequeño
@@ -622,7 +474,6 @@ $(document).ready(function(){
 	            $colorB = '#FFFFFF'; // blanco
 	        }
 	        
-	        
 	        // FOR CLASIFICACION
 	        
 	        $califMas = '';
@@ -642,49 +493,48 @@ $(document).ready(function(){
 		        $tallaArray = $tallaArray.'<option value="'.$difTallas[$iP].'">'.$difTallas[$iP].'</option>';
 	        }
 	        
-	        //echo 'diferentes tallas '.$rankingPrecios[$i][10];
-	        
-	        //print_r($difTallas);
-	        //echo $tallaArray;
-	        
-	        
-	    
 		    /////////////////////////////////////////////////////////////
 		    
 		    // hash de validacion
 		    $hash = hash('sha256', $secret.$rankingPrecios[$i][4].$rankingPrecios[$i][9].$rankingPrecios[$i][16].$rankingPrecios[$i][17]);
-		                                     // titulo               marca                  precioA                precioB
-
-		    		    
-		    
+		                                     // titulo               marca                  precioA                precioB		    
 			echo '
 			<div class="col-6 col-md-3 col-lg-2"> <!----- producto x---->
 			
-			            <!-- Card -->
-			        <div class="card mb-7" data-toggle="card-collapse">
-			              
+			        <!-- Card -->
+					<div class="card mb-7 sombras" data-toggle="card-collapse">
+					<a href="#" data-toggle="modal" data-target="#Producto" id="prod'.$i.'"> 
+					<div 
+					    style="background-image: url('.$rankingPrecios[$i][6].');
+					    background-size: cover;
+					    height: 250px;
+				 	    background-position:center;"
+					></div>
+			        </a>      
 			              <!-- Badge -->
 			              
 			                '.$oferta.'
 			                                      
 			              <!-- Image -->
-			            <a href="#" data-toggle="modal" data-target="#Producto" id="prod'.$i.'">
-			                <img src="'.$rankingPrecios[$i][6].'" class="card-img-top">
-			            </a>
+			            <!-- <a href="#" data-toggle="modal" data-target="#Producto" id="prod'.$i.'">
+			                <img src="'.'" class="card-img-top">
+			            </a> -->
 			
+
+
 			              <!-- Collapse -->
 			            <div class="card-collapse-parent">
 			
 			                <!-- Body -->
-			                <div class="card-body px-0 bg-white text-center">
+			                <div class="card-body px-0 bg-white pl-lg-2 pr-lg-2 pl-md-2 pr-md-2 pl-xs-2 pr-xs-2 pl-2 pr-2">
 			
 			                  <!-- Heading -->
 			                    <div class="mb-1 font-weight-bold">
-			                        <p><a class="text-primary text-uppercase"  href="#">'.$rankingPrecios[$i][4].'</a></p>
+			                        <p><a class="text-primary text-uppercase fParrafo"  href="#" data-toggle="modal" data-target="#Producto" id="prod'.$i.'">'.$rankingPrecios[$i][4].'</a></p>
 			                        
-			                        <p><a class="text-primary text-uppercase"  href="#">'.$rankingPrecios[$i][9].'</a></p>
+			                        <p><a class="text-primary text-uppercase fParrafo"  href="#">'.$rankingPrecios[$i][9].'</a></p>
 			                        
-			                        <p><a class="text-dark    text-uppercase"  href="#">'.$rankingPrecios[$i][5].'</a></p>
+			                        <p><a class="text-dark    text-uppercase fParrafo"  href="#">'.$rankingPrecios[$i][5].'</a></p>
 			                    </div>
 			
 			                  <!-- Price -->
@@ -698,7 +548,6 @@ $(document).ready(function(){
 				                    				                    
 				                </div>
 				        
-				                
 				                <div class="row justify-content-center">
 					                <i class="fa fa-credit-card" style="color: #373737"></i>
 					                  &nbsp;&nbsp;&nbsp;
@@ -717,11 +566,6 @@ $(document).ready(function(){
 			</div>
 			<!---------- fin ----> '; 
 	
-	
-	   //next($jsonP['productos']['galeria'.$categoria]);
-	   
-	   
-	   
         echo '	 
         <script> 
 		    $(document).ready(function(){   // AAA  
@@ -769,11 +613,9 @@ $(document).ready(function(){
 	   
 	} // cierre del for i
 	?> 
-	
-
-          	                  
+	    	                  
  </div>
-
+</div>
 
 <!--------------------------------->
 <br>
@@ -964,35 +806,69 @@ $(document).ready(function(){
 
 <!-------------- cierre de modal -->
 
+<!----------- slide testimonios --------------->
+<hr>
+<div class="container">
+	<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+		<div class="carousel-inner">
+			<?php echo $testimonioHTML; ?>
+			
+		</div>
+	</div>
+</div>
 
 
+<!----------- formulario ------>
 
-<!---- footer ------------->
-  <footer class="pt-4 my-md-5 pt-md-5 border-top">
-    <div class="row">
-      <div class="col-12 col-md" style="padding-left: 30px">
-        <img class="mb-2" src="img/digiPop.png" alt="" >
-        <small class="d-block mb-3 text-muted">© 2020</small>
-      </div>
-      <div class="col-4 col-md pie">
-        <h5>Nosotros</h5>
-        <ul class="list-unstyled text-small">
-          <li><a class="text-muted " href="#">Rodrigo</a></li>
-          <li><a class="text-muted " href="#">Diego</a></li>
-          <li><a class="text-muted " href="#">digiPop</a></li>
-          
-        </ul>
-      </div>
-      <div class="col-4 col-md pie">
-        <h5>Email</h5>
-        <ul class="list-unstyled text-small">
-          <li><a class="text-muted " href="#">roo@hhh.com</a></li>
-          <li><a class="text-muted " href="#">diego@hhh.com</a></li>
-          <li><a class="text-muted " href="#">consultas@hhh.com</a></li>
-        </ul>
-      </div>
-    </div>
-  </footer>
+<hr>
+<div class="container-fluid col">
+    <div class="jumbotron row " style="background-color:rgba(0,0,0,0);">
+		<div id="consulta" class="col">
+			<form class="row align-items-center">
+				<div class="form-group col-md-4">
+					<label for="exampleInputEmail1"class="fSubtitulo" >Email</label>
+					<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
+					<small id="emailHelp" class="form-text text-muted fParrafo">Dirección de correo.</small>
+				</div>
+				<div class="form-group col-md-5">
+					<label for="exampleInputPassword1" class="fSubtitulo">Comentarios</label>
+					<input type="text" class="form-control" id="exampleInputPassword1" placeholder="">
+					<small id="emailHelp" class="form-text text-muted fParrafo" >Envianos todas tus dudas sobre el servicio.</small>
+				</div>
+				<div class="col-md-3 ">
+					<button type="submit" id="preguntar" class="btn btn-primary w-100 fSubtitulo">ENVIAR</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+<!---- footer ----------->
+	<div class="bg-dark row fParrafo">
+		<div class="row">
+			<div class="col-12 col-md-6" style="padding-left: 30px">
+				<img class="mb-2" src="<?php echo $logoUrl;?>" alt="" >
+				<small class="d-block mb-3 text-muted">© 2020</small>
+			</div>
+			<div class="col-4 col-md-3">
+				<h5>Nosotros</h5>
+				<ul class="list-unstyled text-small">
+					<li><a class="text-muted" href="#">Rodrigo</a></li>
+					<li><a class="text-muted" href="#">Diego</a></li>
+					<li><a class="text-muted" href="#">digiPop</a></li>
+				</ul>
+			</div>
+			<div class="col-4 col-md-3">
+				<h5>Email</h5>
+				<ul class="list-unstyled text-small">
+				<li><a class="text-muted" href="#">roo@hhh.com</a></li>
+				<li><a class="text-muted" href="#">diego@hhh.com</a></li>
+				<li><a class="text-muted" href="#">consultas@hhh.com</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>	
+</div>	 
+
   
 	
 </body>

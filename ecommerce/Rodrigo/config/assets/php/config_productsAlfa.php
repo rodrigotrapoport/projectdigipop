@@ -74,27 +74,27 @@ $jsonConfigProductos = '
         "link"      : "fuenteLink"
     },
     "colores" : {
-        "color1" : "#1239AC",
-        "color2" : "#3D12AF",
-        "color3" : "#FFD700",
+        "color1" : "#E8DAEF",
+        "color2" : "#F2F3F4",
+        "color3" : "#515A5A",
         "color4" : "#FFAE00"
     },
 	"logos" : {
-		"logo"    : "link logo",
+		"logo"    : "img/digiPop.svg",
 	    "favicom" : "link favicom"
     },
     "slides" : {
         "slide1" : {
             "id" : "1",  
             "slideCategoria" : "categoria1",
-            "foto"      : ["img/digiPopProductosV.svg","img/digiPopProductosH.svg"],
+            "foto"      : "img/buda.jpeg",
             "filtroFoto" : "Ninguno",
             "opacidad"  : "0.1",
-            "titulo"    : "titulo 1",
-            "subtitulo" : "subtitulo 1",
+            "titulo"    : "Disfruta de los nuevos productos de temporada",
+            "subtitulo" : "Ingresa ya!!!",
             "texto"     : "texto 1", 
             "link"      : "link 1",
-            "textoBtn"  : "btn 1", 
+            "textoBtn"  : "Ofertas 1", 
             "colorBtn"  : "#000000",
             "tipoBtn"   : "Redondeado",
             "sombraBtn" : "si",
@@ -106,12 +106,12 @@ $jsonConfigProductos = '
         "slide2" : {
             "id" : "2",  
             "slideCategoria" : "categoria2",
-            "foto"      : ["img/digiPopProductosV.svg","img/digiPopProductosH.svg"],
+            "foto"      : "img/digiPop3.svg",
             "filtroFoto" : "Sepia",
             "opacidad"  : "0.9",
-            "titulo"    : "titulo 1",
-            "subtitulo" : "subtitulo 1",
-            "texto"     : "texto 1", 
+            "titulo"    : "La nueva temporada esta en camino",
+            "subtitulo" : "disfruta ya!!!",
+            "texto"     : "Ofertas 2", 
             "link"      : "link 2",
             "textoBtn"  : "btn 2", 
             "colorBtn"  : "#000000",
@@ -126,18 +126,23 @@ $jsonConfigProductos = '
 	"catSlide" : {
         "catSlide1" : {
             "id"     : "1",
-            "titulo" : "titulo uno"
+            "titulo" : "TELEFONOS IPHONE",
+            "visibilidades" : "si"
         },
         "catSlide2" : {
             "id"     : "2",
-            "titulo" : "titulo dos"
+            "titulo" : "TELEFONOS ANDROID",
+            "visibilidades" : "si"
         },
         "catSlide3" : {
             "id"     : "3",
-            "titulo" : "titulo tres"
+            "titulo" : "titulo tres",
+            "visibilidades" : "si"
+
         },"catSlide4" : {
             "id"     : "4",
-            "titulo" : "titulo cuatro"
+            "titulo" : "titulo cuatro",
+            "visibilidades" : "no"
         }
 	},
 	"nosotros" : {
@@ -181,22 +186,32 @@ $jsonConfigProductos = '
         "cliente1" : {
             "id" : "1",
             "nombreUsuario" : "juan testimonio1", 
-            "comentario"    : "muy bonito",
+            "comentario"    : "Muy bonito aqui va el primer comentario sobre las experiencias con la empresa",
             "socialFuente"  : "facebook",
             "socialLink"    : "link red social",
-            "foto"          : "foto x",
+            "foto"          : "https://1.bp.blogspot.com/-b2WV7xXgR1g/Ucsb765Sg-I/AAAAAAAABxI/FTJXnz5OexU/s1600/IMG_1039.JPG",
             "estrellas"     : "3", 
-            "nombreProducto"     : "producto1"
+            "nombreProducto": "producto1"
         },
         "cliente2" : {
             "id" : "2",
             "nombreUsuario" : "juan testimonio2", 
-            "comentario"    : "muy bonito",
-            "socialFuente"  : "facebook",
+            "comentario"    : "Muy bonito el texto del segundo comentario.",
+            "socialFuente"  : "twiter",
             "socialLink"    : "link red social",
-            "foto"          : "foto x",
+            "foto"          : "https://i.ytimg.com/vi/ENbS7Y-j1kw/hqdefault.jpg",
             "estrellas"     : "5", 
-            "nombreProducto"     : "producto2"
+            "nombreProducto": "producto2"
+        },
+        "cliente3" : {
+            "id" : "3",
+            "nombreUsuario" : "juan testimonio 3", 
+            "comentario"    : "Muy bonito el texto del segundo comentario.",
+            "socialFuente"  : "",
+            "socialLink"    : "link red social",
+            "foto"          : "https://i.ytimg.com/vi/ENbS7Y-j1kw/hqdefault.jpg",
+            "estrellas"     : "5", 
+            "nombreProducto": "productox1"
         }
     },
     "index" : {
@@ -240,17 +255,17 @@ $jsonConfigProductos = '
             "zona2" : { 
                 "id" : "2",
                 "barrios" : "Palermo, Colegiales",
-                "precio"  : "precio dos"
+                "precio"  : "20"
             },
             "zona3" : {
                 "id" : "3",
                 "barrios" : "Boedo, Flores",
-                "precio"  : "precio tres"
+                "precio"  : "30"
             },
             "zona4" : {
                 "id" : "4",
                 "barrios" : "Deboto, Villa Puyrredon",
-                "precio"  : "precio cuatro"
+                "precio"  : "40"
             }
         }
     },
@@ -261,7 +276,7 @@ $jsonConfigProductos = '
         "googleTargetBody" : "dato 2.2",
         "facebookPixel"   : "dato 3",
         "facebookMessenger" : "dato 4",
-        "googleMaps"      : "https://www.google.com.mx/maps/@23.2751104,-106.397696,14z",
+        "googleMaps"      : "23.2751104,-106.397696",
         "whatsapp"        : "dato 6"
     },
     "mediosPagos" : {

@@ -20,51 +20,15 @@ $string1 =  $_POST['titulo'].$_POST['marca'].$_POST['precioA'].$_POST['precioB']
 $hashInput = $_POST['hash']; 
 // hash que se envia desde productos
 
-$hashControl = hash('sha256', $secret.$_POST['titulo'].$_POST['marca'].$_POST['precioA'].$_POST['precioB']); 
+$hashControl = hash('sha256', 'elExitoLLego!'.$_POST['titulo'].$_POST['precioA'].$_POST['precioB']); 
 // hash que valida el precio
 
 if( $hashInput == $hashControl ){
 	$validacion = 'ok';
+} else {
+    $validacion = 'error';
 }
-///****************** encriptar AES ***************
-/*
-$contrasena = "River"; /// clave string
 
-$iteraciones = 7;
-
-$sal = mcrypt_create_iv(16, MCRYPT_DEV_URANDOM);
-
-$hash = hash_pbkdf2("sha256", $contrasena, $sal, $iteraciones, 64); // clave
-
-$hashTest = '4774416552d698a31682b684c0b7f1b78023746175faf3192b2835d8f063427c'; // un solo has para testear
-
-$key = pack('H*', $hashTest ); // clave final de encriptacion              GUARDAR *******
-
-$key_size =  strlen($key); // tamaño de la clave
-
-$plaintext = $string; // texto a codificar
-
-$iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC); //    GUARDAR ******
-
-$iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-
-$ciphertext = mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $key, $plaintext, MCRYPT_MODE_CBC, $iv);
-
-$ciphertext = $iv . $ciphertext;
-
-$ciphertext_base64 = base64_encode($ciphertext); // texto final codificado GUARDAR *******
-
-//// decodificar ////
-
-$ciphertext_dec = base64_decode($ciphertext_base64); // decodificar
-
-$iv_dec = substr($ciphertext_dec, 0, $iv_size); // nece
-
-$ciphertext_dec = substr($ciphertext_dec, $iv_size);
-
-//                                                   nece    nece  
-$plaintext_dec = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $key, $ciphertext_dec, MCRYPT_MODE_CBC, $iv_dec); // decodificador final
-*/
 
 function my_simple_crypt( $string, $action = 'e' ) {
     // you may change these values to your own
@@ -93,21 +57,22 @@ function my_simple_crypt( $string, $action = 'e' ) {
 $encrypted = my_simple_crypt( $string, 'e' );   // encripta el string con todas las variables
 //echo($encrypted);
 
-$decrypted = my_simple_crypt( $encrypted, 'd' );// desencripta el string
+//$decrypted = my_simple_crypt( $encrypted, 'd' );// desencripta el string
 //echo $decrypted;
 
 
 //****************************************
 
-$tx = 'hola';
-$resultado = array("res" => $encrypted.'|' );
-echo json_encode($resultado);
-
+//$tx = 'hola';
+if($validacion == 'ok'){
+    $resultado = array("res" => $encrypted.'|' );
+    echo json_encode($resultado);
+}
 
 /// almacena en un php el resultado
 	
-fwrite($fp, $string);
-fclose($fp);
+//fwrite($fp, $string);
+//fclose($fp);
 //echo 'EL DOCUMENTO SE CREO EXITOSAMENTE '.$hoy;	
 
 	
